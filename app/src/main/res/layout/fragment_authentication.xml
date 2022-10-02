@@ -32,7 +32,7 @@
             android:layout_marginTop="32dp">
 
             <TextView
-                android:id="@+id/enter_account_text"
+                android:id="@+id/enter_account_header"
                 android:layout_width="328dp"
                 android:layout_height="0dp"
                 android:gravity="center"
@@ -52,7 +52,7 @@
                 android:layout_height="90dp"
                 android:layout_marginTop="24dp"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/enter_account_text"
+                app:layout_constraintTop_toBottomOf="@+id/enter_account_header"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -85,7 +85,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:textSize="16sp"
-                            android:text="+7"
+                            android:text="79005868675"
                             android:layout_width="260dp"
                             android:layout_height="44dp"
                             android:maxLength="19"
@@ -150,6 +150,7 @@
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 android:textSize="16sp"
+                                android:text="devExam18"
                                 android:layout_width="260dp"
                                 android:layout_height="44dp"
                                 android:layout_marginStart="10dp"
@@ -176,6 +177,7 @@
 
 
             <Button
+                android:id="@+id/enter_account_button"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Войти"
