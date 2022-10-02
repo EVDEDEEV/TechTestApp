@@ -3,11 +3,13 @@ buildscript {
     repositories {
         // other repositories...
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         // other plugins...
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.43.2'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2'
+        classpath 'com.github.RedMadRobot:input-mask-android:6.1.0'
     }
 }
 
