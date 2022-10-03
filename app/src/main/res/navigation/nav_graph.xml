@@ -3,11 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/authentificationFragment">
+    app:startDestination="@id/devExam">
 
     <fragment
         android:id="@+id/authentificationFragment"
         android:name="my.project.techtestapp.presentation.fragments.authentication.AuthenticationFragment"
         android:label="fragment_authentication"
-        tools:layout="@layout/fragment_authentication" />
+        tools:layout="@layout/fragment_authentication" >
+        <action
+            android:id="@+id/action_authentificationFragment_to_devExam"
+            app:destination="@id/devExam" />
+    </fragment>
+    <fragment
+        android:id="@+id/devExam"
+        android:name="my.project.techtestapp.presentation.fragments.devExam.DevExam"
+        android:label="fragment_dev_exam"
+        tools:layout="@layout/fragment_dev_exam" >
+        <action
+            android:id="@+id/action_devExam_to_authentificationFragment"
+            app:destination="@id/authentificationFragment" />
+    </fragment>
 </navigation>

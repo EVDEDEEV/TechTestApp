@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/article_item_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_launcher_background">
+    </ImageView>
+    
+    <TextView
+        android:maxLength="100"
+        android:maxLines="2"
+        android:id="@+id/article_title"
+        android:layout_width="232dp"
+        android:textColor="@color/black_alternative"
+        android:layout_marginStart="16dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/roboto"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:text="@string/article_header"
+        app:layout_constraintStart_toEndOf="@id/article_item_image"
+        app:layout_constraintTop_toTopOf="@id/article_item_image">
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/article_text"
+        android:layout_width="232dp"
+        android:fontFamily="@font/roboto"
+        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:text="@string/article_text"
+        android:textColor="@color/black_alternative"
+        app:layout_constraintTop_toBottomOf="@id/article_title"
+        app:layout_constraintStart_toStartOf="@id/article_title">
+
+    </TextView>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="18dp"
+        android:id="@+id/article_date"
+        android:layout_width="232dp"
+        android:textSize="12sp"
+        android:fontFamily="@font/roboto"
+        android:layout_height="wrap_content"
+        android:text="@string/article_date"
+        android:textColor="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/article_text"
+        app:layout_constraintStart_toStartOf="@id/article_text"
+        app:layout_constraintBottom_toTopOf="@id/bottomLine">
+
+    </TextView>
+
+    <View
+        android:id="@+id/bottomLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DDDDDD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </View>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

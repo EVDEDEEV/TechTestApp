@@ -7,7 +7,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import my.project.techtestapp.LTechApplication
-import my.project.techtestapp.data.api.LTechApi
+import my.project.techtestapp.data.api.ArticlesResponseApi
+import my.project.techtestapp.data.api.AuthenticationApi
 import my.project.techtestapp.utils.Constants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -53,9 +54,17 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideRatesApiInterface(retrofit: Retrofit): LTechApi {
-        return retrofit.create(LTechApi::class.java)
+    fun provideRatesApiInterface(retrofit: Retrofit): AuthenticationApi {
+        return retrofit.create(AuthenticationApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideArticlesInterface(retrofit: Retrofit): ArticlesResponseApi {
+        return retrofit.create(ArticlesResponseApi::class.java)
+    }
+
+
 
     @Provides
     @Singleton
