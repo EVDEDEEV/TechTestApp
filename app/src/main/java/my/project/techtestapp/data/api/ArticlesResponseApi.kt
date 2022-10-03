@@ -8,6 +8,6 @@ import retrofit2.http.Query
 
 interface ArticlesResponseApi {
 
-    @GET("posts")
+    @GET("/api/v1/posts")
     suspend fun getArticles(): Response<ArticlesResponse>
 }

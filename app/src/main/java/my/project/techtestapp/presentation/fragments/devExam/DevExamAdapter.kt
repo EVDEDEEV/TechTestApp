@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import my.project.techtestapp.data.models.remote.articles.ArticlesResponseItem
 import my.project.techtestapp.databinding.ArticleItemBinding
+import my.project.techtestapp.utils.Constants.BASE_URL
 import my.project.techtestapp.utils.Constants.DATE_FORMAT_PATTERN
 import java.time.OffsetDateTime
 import java.time.ZoneId
@@ -19,17 +21,15 @@ class DevExamAdapter : RecyclerView.Adapter<DevExamAdapter.ArticlesViewHolder>()
 
     class ArticlesViewHolder(private val binding: ArticleItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(article: ArticlesResponseItem) {
             binding.apply {
                 articleTitle.text = article.title
                 articleText.text = article.text
                 articleDate.text = article.date?.let { formatDate(it) }
-//                Picasso.get().load(article.image).into(articleItemImage)
+                Picasso.get().load(BASE_URL + article.image).into(articleItemImage)
             }
         }
 
-        @RequiresApi(Build.VERSION_CODES.O)
         fun formatDate(date: String): String {
             val dateTime : ZonedDateTime = OffsetDateTime.parse(date).toZonedDateTime()
             val defaultZoneTime: ZonedDateTime = dateTime.withZoneSameInstant(ZoneId.systemDefault())
@@ -38,15 +38,12 @@ class DevExamAdapter : RecyclerView.Adapter<DevExamAdapter.ArticlesViewHolder>()
         }
     }
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ArticleItemBinding.inflate(layoutInflater, parent, false)
         return ArticlesViewHolder(binding)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ArticlesViewHolder, position: Int) {
         holder.bind(listArticles[position])
     }

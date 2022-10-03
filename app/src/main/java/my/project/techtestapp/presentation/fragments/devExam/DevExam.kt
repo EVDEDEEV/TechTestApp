@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,7 @@ class DevExam : Fragment(R.layout.fragment_dev_exam) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         setDataToRecyclerView()
+        initFilterButton()
     }
 
     private fun initRecyclerView() {
@@ -38,6 +40,13 @@ class DevExam : Fragment(R.layout.fragment_dev_exam) {
             if (articleItem != null) {
                 articlesAdapter.setArticles(articleItem)
             }
+        }
+    }
+
+    private fun initFilterButton() {
+        binding.filterButton.setOnClickListener {
+            val action = DevExamDirections.actionDevExamToFilterBottomSheetFragment()
+            view?.findNavController()?.navigate(action)
         }
     }
 }

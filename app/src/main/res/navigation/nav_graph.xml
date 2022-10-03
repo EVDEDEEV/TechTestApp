@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_devExam_to_detailedArticleFragment"
             app:destination="@id/detailedArticleFragment" />
+        <action
+            android:id="@+id/action_devExam_to_filterBottomSheetFragment"
+            app:destination="@id/filterBottomSheetFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailedArticleFragment"
@@ -28,4 +31,12 @@
             android:id="@+id/action_detailedArticleFragment_to_devExam"
             app:destination="@id/devExam" />
     </fragment>
+    <dialog
+        android:id="@+id/filterBottomSheetFragment"
+        android:name="my.project.techtestapp.presentation.fragments.filterFragment.FilterBottomSheetFragment"
+        android:label="FilterBottomSheetFragment" >
+        <action
+            android:id="@+id/action_filterBottomSheetFragment_to_devExam"
+            app:destination="@id/devExam" />
+    </dialog>
 </navigation>
