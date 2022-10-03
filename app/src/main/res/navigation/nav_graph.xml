@@ -9,18 +9,23 @@
         android:id="@+id/authentificationFragment"
         android:name="my.project.techtestapp.presentation.fragments.authentication.AuthenticationFragment"
         android:label="fragment_authentication"
-        tools:layout="@layout/fragment_authentication" >
-        <action
-            android:id="@+id/action_authentificationFragment_to_devExam"
-            app:destination="@id/devExam" />
-    </fragment>
+        tools:layout="@layout/fragment_authentication" />
     <fragment
         android:id="@+id/devExam"
         android:name="my.project.techtestapp.presentation.fragments.devExam.DevExam"
         android:label="fragment_dev_exam"
         tools:layout="@layout/fragment_dev_exam" >
         <action
-            android:id="@+id/action_devExam_to_authentificationFragment"
-            app:destination="@id/authentificationFragment" />
+            android:id="@+id/action_devExam_to_detailedArticleFragment"
+            app:destination="@id/detailedArticleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailedArticleFragment"
+        android:name="my.project.techtestapp.presentation.fragments.detailedArticle.DetailedArticleFragment"
+        android:label="fragment_detailed_article"
+        tools:layout="@layout/fragment_detailed_article" >
+        <action
+            android:id="@+id/action_detailedArticleFragment_to_devExam"
+            app:destination="@id/devExam" />
     </fragment>
 </navigation>
