@@ -6,8 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import my.project.techtestapp.data.models.remote.authentication.AuthResponse
-import my.project.techtestapp.data.models.remote.articles.ArticlesResponse
+import my.project.techtestapp.data.models.database.articles.ArticlesEntity
 import my.project.techtestapp.data.repository.AuthRepository
 import javax.inject.Inject
 
@@ -16,7 +15,8 @@ class MainViewModel @Inject constructor(
     private val repository: AuthRepository,
 ) : ViewModel() {
 
-    var listArticles = MutableLiveData<ArticlesResponse?>()
+    var listArticles = MutableLiveData<List<ArticlesEntity>>()
+
 
     //    var authResponse = MutableLiveData<Int?>()
 //    var authResponse = MutableLiveData<Response<AuthResponse>?>()
@@ -31,10 +31,25 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getArticles() {
+
+    suspend fun getArticlesFromApi() {
         viewModelScope.launch(Dispatchers.IO) {
-            val articles = repository.getArticles()
-            listArticles.postValue(articles)
+            repository.getArticlesFromApi()
         }
     }
+
+    fun getArticles() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = repository.getArticlesFromDb()
+            listArticles.postValue(result)
+        }
+    }
+
+
+//    fun getArticles() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val articles = repository.getArticlesFromDb()
+//            listArticles.postValue(articles)
+//        }
+//    }
 }

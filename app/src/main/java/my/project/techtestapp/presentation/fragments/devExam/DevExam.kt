@@ -35,6 +35,7 @@ class DevExam : Fragment(R.layout.fragment_dev_exam) {
         initRecyclerView()
         setDataToRecyclerView()
         initFilterButton()
+        initRefreshButton()
     }
 
     private fun initRecyclerView() {
@@ -43,8 +44,25 @@ class DevExam : Fragment(R.layout.fragment_dev_exam) {
         }
     }
 
-    private fun setDataToRecyclerView() {
+    private fun initRefreshButton() {
+        binding.refreshButton.setOnClickListener {
+            getArticlesFromApi()
+        }
+    }
+
+    private fun getArticlesFromApi() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            mainViewModel.getArticlesFromApi()
+            getArticlesFromDb()
+        }
+    }
+
+    private fun getArticlesFromDb() {
         mainViewModel.getArticles()
+    }
+
+    private fun setDataToRecyclerView() {
+        getArticlesFromDb()
         mainViewModel.listArticles.observe(viewLifecycleOwner) { articleItem ->
             if (articleItem != null) {
                 articlesAdapter.setArticles(articleItem)

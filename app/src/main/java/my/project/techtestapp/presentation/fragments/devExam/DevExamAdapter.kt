@@ -1,12 +1,10 @@
 package my.project.techtestapp.presentation.fragments.devExam
 
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import my.project.techtestapp.data.models.remote.articles.ArticlesResponseItem
+import my.project.techtestapp.data.models.database.articles.ArticlesEntity
 import my.project.techtestapp.databinding.ArticleItemBinding
 import my.project.techtestapp.utils.Constants.BASE_URL
 import my.project.techtestapp.utils.Constants.DATE_FORMAT_PATTERN
@@ -15,24 +13,24 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-class DevExamAdapter(private var onItemClick: ((ArticlesResponseItem) -> Unit)) :
+class DevExamAdapter(private var onItemClick: OnCharacterClicked) :
     RecyclerView.Adapter<DevExamAdapter.ArticlesViewHolder>() {
 
-    private var listArticles = emptyList<ArticlesResponseItem>()
+    private var listArticles = emptyList<ArticlesEntity>()
 
     inner class ArticlesViewHolder(private val binding: ArticleItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(article: ArticlesResponseItem) {
+        fun bind(article: ArticlesEntity) {
             binding.apply {
                 articleTitle.text = article.title
                 articleText.text = article.text
                 articleDate.text = article.date?.let { formatDate(it) }
                 Picasso.get().load(BASE_URL + article.image).into(articleItemImage)
-                articleItem.setOnClickListener {
-                    onItemClick.invoke(article)
-                }
+//                articleItem.setOnClickListener {
+//                    onItemClick.invoke(article)
+//                }
             }
         }
 
@@ -59,7 +57,7 @@ class DevExamAdapter(private var onItemClick: ((ArticlesResponseItem) -> Unit)) 
         return listArticles.size
     }
 
-    fun setArticles(articles: List<ArticlesResponseItem>) {
+    fun setArticles(articles: List<ArticlesEntity>) {
         listArticles = articles
         notifyDataSetChanged()
     }
