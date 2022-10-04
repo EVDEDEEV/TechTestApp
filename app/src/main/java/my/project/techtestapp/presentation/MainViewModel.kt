@@ -6,10 +6,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import my.project.techtestapp.data.models.remote.AuthResponse
+import my.project.techtestapp.data.models.remote.authentication.AuthResponse
 import my.project.techtestapp.data.models.remote.articles.ArticlesResponse
 import my.project.techtestapp.data.repository.AuthRepository
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,18 +16,20 @@ class MainViewModel @Inject constructor(
     private val repository: AuthRepository,
 ) : ViewModel() {
 
-     val listArticles = MutableLiveData<ArticlesResponse?>()
+    var listArticles = MutableLiveData<ArticlesResponse?>()
 
+    //    var authResponse = MutableLiveData<Int?>()
+//    var authResponse = MutableLiveData<Response<AuthResponse>?>()
+//    var authResponse = MutableLiveData<AuthResponse?>()
+    var authResponse = MutableLiveData<Boolean?>(false)
+//    var authResponse = MutableLiveData<String?>()
 
-    fun getAuth(phone: String, password: String) = repository.loginRepository(phone, password)
-
-//    fun getAuth(phone: String, password: String): AuthResponse? {
-////        viewModelScope.launch {
-////            repository.loginRepository(phone, password)
-//////            Log.e("TAG", "Heroes -> $bool")
-////        }
-//        return repository.loginRepository(phone, password)
-//    }
+    fun getAuth(phone: String, password: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = repository.authFuncInRepository(phone, password)
+            authResponse.postValue(result)
+        }
+    }
 
     fun getArticles() {
         viewModelScope.launch(Dispatchers.IO) {

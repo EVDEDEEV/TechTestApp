@@ -15,24 +15,31 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-class DevExamAdapter : RecyclerView.Adapter<DevExamAdapter.ArticlesViewHolder>() {
+class DevExamAdapter(private var onItemClick: ((ArticlesResponseItem) -> Unit)) :
+    RecyclerView.Adapter<DevExamAdapter.ArticlesViewHolder>() {
 
     private var listArticles = emptyList<ArticlesResponseItem>()
 
-    class ArticlesViewHolder(private val binding: ArticleItemBinding) :
+    inner class ArticlesViewHolder(private val binding: ArticleItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+
         fun bind(article: ArticlesResponseItem) {
             binding.apply {
                 articleTitle.text = article.title
                 articleText.text = article.text
                 articleDate.text = article.date?.let { formatDate(it) }
                 Picasso.get().load(BASE_URL + article.image).into(articleItemImage)
+                articleItem.setOnClickListener {
+                    onItemClick.invoke(article)
+                }
             }
         }
 
         fun formatDate(date: String): String {
-            val dateTime : ZonedDateTime = OffsetDateTime.parse(date).toZonedDateTime()
-            val defaultZoneTime: ZonedDateTime = dateTime.withZoneSameInstant(ZoneId.systemDefault())
+            val dateTime: ZonedDateTime = OffsetDateTime.parse(date).toZonedDateTime()
+            val defaultZoneTime: ZonedDateTime =
+                dateTime.withZoneSameInstant(ZoneId.systemDefault())
             val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN)
             return defaultZoneTime.format(formatter)
         }

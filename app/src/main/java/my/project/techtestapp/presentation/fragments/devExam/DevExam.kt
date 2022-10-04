@@ -11,15 +11,24 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import my.project.techtestapp.R
+import my.project.techtestapp.data.models.remote.articles.ArticlesResponseItem
 import my.project.techtestapp.databinding.FragmentDevExamBinding
 import my.project.techtestapp.presentation.MainViewModel
+
+typealias OnCharacterClicked = (ArticlesResponseItem) -> Unit
 
 @AndroidEntryPoint
 class DevExam : Fragment(R.layout.fragment_dev_exam) {
 
     private val binding by viewBinding(FragmentDevExamBinding::bind)
-    private val articlesAdapter by lazy { DevExamAdapter() }
+    private val articlesAdapter by lazy { DevExamAdapter(onClick) }
     private val mainViewModel: MainViewModel by viewModels()
+
+    private val onClick:OnCharacterClicked =  { article ->
+        val action = DevExamDirections.actionDevExamToDetailedArticleFragment()
+        view?.findNavController()?.navigate(action)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +38,7 @@ class DevExam : Fragment(R.layout.fragment_dev_exam) {
     }
 
     private fun initRecyclerView() {
-        binding.mainRecyclerView.apply {
+        binding.articlesRecyclerView.apply {
             adapter = articlesAdapter
         }
     }
@@ -49,4 +58,5 @@ class DevExam : Fragment(R.layout.fragment_dev_exam) {
             view?.findNavController()?.navigate(action)
         }
     }
+
 }

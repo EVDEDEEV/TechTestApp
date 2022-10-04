@@ -116,6 +116,8 @@ dependencies {
     //Picasso
     implementation "com.squareup.picasso:picasso:2.71828"
 
+    implementation 'com.github.bluejamesbond:textjustify-android:2.1.6'
+
     //EditTextPhoneMask
 //    implementation 'com.github.RedMadRobot:input-mask-android:6.1.0'
 

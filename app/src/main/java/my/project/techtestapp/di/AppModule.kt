@@ -35,23 +35,6 @@ class AppModule {
             this.level = HttpLoggingInterceptor.Level.BODY
         }
 
-//    @Provides
-//    @Singleton
-//    fun httpClient(
-//        httpLoggingInterceptor: HttpLoggingInterceptor
-//    ): OkHttpClient =
-//        OkHttpClient.Builder()
-//            .addInterceptor { chain ->
-//                val request = chain.request().newBuilder()
-//                    .addHeader(
-//                        "phone")
-//                    .build()
-//
-//                return@addInterceptor chain.proceed(request)
-//            }
-//            .addInterceptor(httpLoggingInterceptor)
-//            .build()
-
     @Singleton
     @Provides
     fun provideRatesApiInterface(retrofit: Retrofit): AuthenticationApi {
@@ -63,8 +46,6 @@ class AppModule {
     fun provideArticlesInterface(retrofit: Retrofit): ArticlesResponseApi {
         return retrofit.create(ArticlesResponseApi::class.java)
     }
-
-
 
     @Provides
     @Singleton

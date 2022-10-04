@@ -46,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="parent">
             </TextView>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/phone_enter_frame"
                 android:layout_width="328dp"
                 android:layout_height="90dp"
@@ -60,6 +60,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
                     android:text="@string/phone_field_header"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     android:fontFamily="@font/roboto"
                     android:textSize="16sp"
                     android:layout_marginBottom="6dp"
@@ -69,11 +71,13 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/phone_enter_field"
                     style="@style/CustomCardViewStyle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:strokeWidth="1dp"
                     app:strokeColor="#9E9E9E"
                     app:cardBackgroundColor="@color/main_background_white"
                     android:layout_width="328dp"
-                    android:layout_height="44dp">
+                    android:layout_height="58dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -85,16 +89,17 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:textSize="16sp"
-                            android:text="79005868675"
-                            android:layout_width="260dp"
-                            android:layout_height="44dp"
-                            android:maxLength="19"
+                            android:background="#00000000"
                             android:layout_marginStart="10dp"
+                            android:layout_width="260dp"
+                            android:maxLength="19"
                             android:digits="1234567890+-()"
-                            android:inputType="number">
-                        </EditText>
+                            android:inputType="number"
+                            android:layout_height="match_parent"/>
+
 
                         <ImageButton
+                            android:background="@color/main_background_white"
                             android:id="@+id/clear_text_icon"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -110,9 +115,10 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/password_frame"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:orientation="vertical"
@@ -122,6 +128,8 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                     <TextView
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:text="@string/password_field_header"
@@ -132,58 +140,71 @@
                     </TextView>
 
                     <com.google.android.material.card.MaterialCardView
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         android:id="@+id/password_enter_field"
                         style="@style/CustomCardViewStyle"
                         app:strokeWidth="1dp"
                         app:strokeColor="#9E9E9E"
                         app:cardBackgroundColor="@color/main_background_white"
                         android:layout_width="328dp"
-                        android:layout_height="44dp">
+                        android:layout_height="58dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <EditText
+                            <com.google.android.material.textfield.TextInputLayout
                                 android:id="@+id/password_input_text"
+                                app:passwordToggleEnabled="true"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:textSize="16sp"
-                                android:text="devExam18"
-                                android:layout_width="260dp"
-                                android:layout_height="44dp"
-                                android:layout_marginStart="10dp"
-                                android:inputType="textPassword">
-                            </EditText>
-
-                            <ImageButton
-                                android:id="@+id/change_password_visibility_text_icon"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                android:src="@drawable/change_password_visibility_icon"
-                                android:layout_gravity="center"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_margin="12dp">
-                            </ImageButton>
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:cursorVisible="true"
+                                    android:focusable="true"
+                                    android:background="#00000000"
+                                    android:textSize="16sp"
+                                    android:inputType="textPassword"
+                                    android:maxLength="25"
+                                    android:maxLines="1"/>
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+<!--                            <ImageButton-->
+<!--                                android:background="@color/main_background_white"-->
+<!--                                android:id="@+id/change_password_visibility_text_icon"-->
+<!--                                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="parent"-->
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                android:src="@drawable/change_password_visibility_icon"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_width="24dp"-->
+<!--                                android:layout_height="24dp"-->
+<!--                                android:layout_margin="12dp">-->
+<!--                            </ImageButton>-->
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </com.google.android.material.card.MaterialCardView>
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
+                style="@style/CustomButtonStyle"
+                android:layout_marginTop="23dp"
                 android:id="@+id/enter_account_button"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="80dp"
                 android:text="Войти"
                 android:backgroundTint="@color/blue"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_frame"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
             </Button>
