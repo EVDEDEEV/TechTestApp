@@ -35,6 +35,7 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
                     if (success == true) {
                         val action =
                             AuthenticationFragmentDirections.actionAuthenticationFragmentToDevExam()
+//                        view?.findNavController()?.navigate(action)
                         view?.findNavController()?.navigate(action)
                     }
 //                    } else {

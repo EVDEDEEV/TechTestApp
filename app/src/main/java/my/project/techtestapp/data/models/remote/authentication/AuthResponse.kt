@@ -6,3 +6,4 @@ data class AuthResponse(
     @SerializedName("success")
     val success: Boolean,
 )
+

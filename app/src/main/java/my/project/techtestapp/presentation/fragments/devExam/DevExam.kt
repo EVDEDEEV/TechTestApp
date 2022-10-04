@@ -58,5 +58,4 @@ class DevExam : Fragment(R.layout.fragment_dev_exam) {
             view?.findNavController()?.navigate(action)
         }
     }
-
 }
