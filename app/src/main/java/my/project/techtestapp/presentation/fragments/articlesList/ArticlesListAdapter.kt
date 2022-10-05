@@ -3,6 +3,7 @@ package my.project.techtestapp.presentation.fragments.articlesList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import my.project.techtestapp.data.models.database.articles.ArticlesEntity
 import my.project.techtestapp.databinding.ArticleItemBinding
@@ -12,6 +13,7 @@ import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.coroutines.coroutineContext
 
 class ArticlesListAdapter() :
     ListAdapter<ArticlesEntity, ArticlesListAdapter.ArticlesViewHolder>(AsyncDifferConfig.Builder(DIFF_CALLBACK).build()) {
@@ -24,7 +26,8 @@ class ArticlesListAdapter() :
                 articleTitle.text = article.title
                 articleText.text = article.text
                 articleDate.text = formatDate(article.date)
-                Picasso.get().load(BASE_URL + article.image).centerCrop().fit().into(articleItemImage)
+                Glide.with(itemView.context).load(BASE_URL+ article.image).into(articleItemImage)
+//                Picasso.get().load(BASE_URL + article.image).centerCrop().fit().into(articleItemImage)
 //                articleItem.setOnClickListener {
 //                    onItemClick.invoke(article)
 //                }

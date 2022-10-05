@@ -6,6 +6,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import my.project.techtestapp.R
@@ -58,8 +60,19 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
     private fun setDataToRecyclerView() {
         collectFlow(articlesListViewModel.listArticles) {
             articlesAdapter.submitList(it)
-            articlesAdapter.notifyItemRemoved(0)
+            scrollRecyclerViewToTop()
         }
+    }
+
+    private fun scrollRecyclerViewToTop() {
+        articlesAdapter.registerAdapterDataObserver(object :
+            RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                (binding.articlesRecyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
+                    positionStart,
+                    0)
+            }
+        })
     }
 
     private fun initFilterButton() {

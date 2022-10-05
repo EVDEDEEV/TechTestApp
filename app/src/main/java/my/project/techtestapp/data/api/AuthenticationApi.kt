@@ -11,11 +11,14 @@ import retrofit2.http.Query
 
 interface AuthenticationApi {
 
-    @Headers("Content-Type: application/x-www-form-urlencoded")
+//    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
     @POST("/api/v1/auth")
     suspend fun login(
-        @Query("phone") phone: String,
-        @Query("password") password: String,
+//        @Query("phone") phone: String,
+//        @Query("password") password: String,
+        @Field("phone") phone: String,
+        @Field("password") password: String,
     )
     : AuthResponse
 }
