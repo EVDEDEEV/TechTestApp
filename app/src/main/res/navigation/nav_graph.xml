@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_authentication" >
         <action
             android:id="@+id/action_authenticationFragment_to_devExam"
-            app:destination="@id/devExam" />
+            app:destination="@id/devExam"/>
     </fragment>
     <fragment
         android:id="@+id/devExam"

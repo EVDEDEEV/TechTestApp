@@ -4,13 +4,19 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
+import retrofit2.http.DELETE
 
 @Dao
 interface ArticlesDao {
 
-    @Query("SELECT * FROM articles_table")
-    fun getArticles(): List<ArticlesEntity>
+    @Query("SELECT * FROM ARTICLES_TABLE")
+    suspend fun getArticles(): List<ArticlesEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertArticles(articles: List<ArticlesEntity?>)
+
+    @Query("DELETE FROM ARTICLES_TABLE")
+    suspend fun clearTab()
+
 }

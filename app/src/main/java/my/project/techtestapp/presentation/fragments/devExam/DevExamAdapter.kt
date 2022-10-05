@@ -2,7 +2,7 @@ package my.project.techtestapp.presentation.fragments.devExam
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.squareup.picasso.Picasso
 import my.project.techtestapp.data.models.database.articles.ArticlesEntity
 import my.project.techtestapp.databinding.ArticleItemBinding
@@ -13,28 +13,25 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-class DevExamAdapter(private var onItemClick: OnCharacterClicked) :
-    RecyclerView.Adapter<DevExamAdapter.ArticlesViewHolder>() {
-
-    private var listArticles = emptyList<ArticlesEntity>()
+class DevExamAdapter() :
+    ListAdapter<ArticlesEntity, DevExamAdapter.ArticlesViewHolder>(AsyncDifferConfig.Builder(DIFF_CALLBACK).build()) {
 
     inner class ArticlesViewHolder(private val binding: ArticleItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
 
         fun bind(article: ArticlesEntity) {
             binding.apply {
                 articleTitle.text = article.title
                 articleText.text = article.text
-                articleDate.text = article.date?.let { formatDate(it) }
-                Picasso.get().load(BASE_URL + article.image).into(articleItemImage)
+                articleDate.text = formatDate(article.date)
+                Picasso.get().load(BASE_URL + article.image).centerCrop().fit().into(articleItemImage)
 //                articleItem.setOnClickListener {
 //                    onItemClick.invoke(article)
 //                }
             }
         }
 
-        fun formatDate(date: String): String {
+        private fun formatDate(date: String): String {
             val dateTime: ZonedDateTime = OffsetDateTime.parse(date).toZonedDateTime()
             val defaultZoneTime: ZonedDateTime =
                 dateTime.withZoneSameInstant(ZoneId.systemDefault())
@@ -50,15 +47,24 @@ class DevExamAdapter(private var onItemClick: OnCharacterClicked) :
     }
 
     override fun onBindViewHolder(holder: ArticlesViewHolder, position: Int) {
-        holder.bind(listArticles[position])
+        holder.bind(currentList[position])
     }
 
     override fun getItemCount(): Int {
-        return listArticles.size
+        return currentList.size
     }
 
-    fun setArticles(articles: List<ArticlesEntity>) {
-        listArticles = articles
-        notifyDataSetChanged()
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ArticlesEntity>() {
+            override fun areItemsTheSame(
+                oldItem: ArticlesEntity,
+                newItem: ArticlesEntity,
+            ): Boolean = oldItem.id == newItem.id
+
+            override fun areContentsTheSame(
+                oldItem: ArticlesEntity,
+                newItem: ArticlesEntity,
+            ): Boolean = oldItem == newItem
+        }
     }
 }

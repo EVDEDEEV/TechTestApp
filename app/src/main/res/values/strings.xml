@@ -9,4 +9,5 @@
     <string name="article_header">Заголовок статьи</string>
     <string name="article_text">Текст статьи</string>
     <string name="article_date">02.10.2022</string>
+    <string name="error_asnwer">Error</string>
 </resources>

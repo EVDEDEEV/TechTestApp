@@ -6,17 +6,17 @@ import my.project.techtestapp.data.models.database.articles.ArticlesEntity
 
 data class ArticlesResponseItem(
     @SerializedName("date")
-    val date: String?,
+    val date: String,
     @SerializedName("id")
-    val id: String?,
+    val id: String,
     @SerializedName("image")
-    val image: String?,
+    val image: String,
     @SerializedName("sort")
-    val sort: Int?,
+    val sort: Int,
     @SerializedName("text")
-    val text: String?,
+    val text: String,
     @SerializedName("title")
-    val title: String?
+    val title: String
 )
 
 

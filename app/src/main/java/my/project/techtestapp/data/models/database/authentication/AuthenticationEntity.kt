@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "AUTHENTICATION_TABLE")
 data class AuthenticationEntity(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey
     @ColumnInfo(name = "SUCCESS")
     val success: Boolean,
 )
