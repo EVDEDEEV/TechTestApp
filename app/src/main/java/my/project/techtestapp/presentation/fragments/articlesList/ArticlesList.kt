@@ -1,5 +1,6 @@
 package my.project.techtestapp.presentation.fragments.articlesList
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
         setDataToRecyclerView()
         initFilterButton()
         initRefreshButton()
+
     }
 
     private fun initRecyclerView() {
@@ -56,13 +58,14 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
     private fun setDataToRecyclerView() {
         collectFlow(articlesListViewModel.listArticles) {
             articlesAdapter.submitList(it)
+            articlesAdapter.notifyDataSetChanged()
         }
     }
 
     private fun initFilterButton() {
         binding.filterButton.setOnClickListener {
             val action = ArticlesListDirections.actionDevExamToFilterBottomSheetFragment()
-            view?.findNavController()?.safeNavigate( action)
+            view?.findNavController()?.safeNavigate(action)
         }
     }
 }

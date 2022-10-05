@@ -25,12 +25,10 @@ class MainRepository @Inject constructor(
 
     fun getArticlesFromApi(): Flow<List<ArticlesEntity>> = flow {
         val articlesCache = articlesDao.getArticles()
-        if (articlesCache.isNotEmpty()) {
-            emit(articlesCache)
-        }
         val articlesApi = loadDataFromApi()
-        if (articlesApi.isNotEmpty()) {
-            emit(articlesApi)
+        when {
+            articlesCache.isNotEmpty() -> emit(articlesCache)
+            articlesApi.isNotEmpty() -> emit(articlesApi)
         }
     }
 
