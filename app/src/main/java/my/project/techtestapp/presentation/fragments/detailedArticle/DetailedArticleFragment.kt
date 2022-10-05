@@ -28,7 +28,12 @@ class DetailedArticleFragment : Fragment(R.layout.fragment_detailed_article) {
             detailedArticleTitle.text = article.title
             detailedArticleDate.text = article.formatDate(article.date)
             detailedArticleText.text = article.text
-            Glide.with(this.root).load(BASE_URL + article.image).into(detailedItemImage)
+            Glide.with(this.root)
+                .load(BASE_URL + article.image)
+                .error(R.drawable.ic_baseline_close_24)
+                .centerCrop()
+                .into(detailedItemImage)
+
         }
     }
 }

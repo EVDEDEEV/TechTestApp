@@ -30,7 +30,7 @@ class ArticlesListAdapter(
 
                 Glide.with(itemView.context)
                     .load(BASE_URL + article.image)
-                    .error(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_baseline_close_24)
                     .into(articleItemImage)
 
                 itemView.setOnClickListener {
