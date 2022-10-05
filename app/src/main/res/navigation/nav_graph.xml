@@ -34,6 +34,10 @@
         android:label="fragment_detailed_article"
         tools:layout="@layout/fragment_detailed_article" >
 
+        <argument
+            android:name="article"
+            app:argType="my.project.techtestapp.data.models.database.articles.ArticlesEntity"/>
+
         <action
             android:id="@+id/action_detailedArticleFragment_to_devExam"
             app:destination="@id/devExam" />

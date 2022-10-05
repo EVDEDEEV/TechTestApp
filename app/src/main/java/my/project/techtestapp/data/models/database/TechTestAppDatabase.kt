@@ -9,5 +9,4 @@ import my.project.techtestapp.data.models.database.articles.ArticlesEntity
 abstract class TechTestAppDatabase : RoomDatabase() {
     abstract fun articlesDao(): ArticlesDao
 
-
 }

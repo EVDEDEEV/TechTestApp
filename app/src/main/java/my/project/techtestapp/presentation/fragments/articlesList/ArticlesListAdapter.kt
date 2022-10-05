@@ -2,51 +2,48 @@ package my.project.techtestapp.presentation.fragments.articlesList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
+import my.project.techtestapp.R
 import my.project.techtestapp.data.models.database.articles.ArticlesEntity
 import my.project.techtestapp.databinding.ArticleItemBinding
 import my.project.techtestapp.utils.Constants.BASE_URL
-import my.project.techtestapp.utils.Constants.DATE_FORMAT_PATTERN
-import java.time.OffsetDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import kotlin.coroutines.coroutineContext
+import my.project.techtestapp.utils.OnArticleClicked
+import my.project.techtestapp.utils.formatDate
 
-class ArticlesListAdapter() :
-    ListAdapter<ArticlesEntity, ArticlesListAdapter.ArticlesViewHolder>(AsyncDifferConfig.Builder(DIFF_CALLBACK).build()) {
+class ArticlesListAdapter(
+    private val onClick: OnArticleClicked,
+) : ListAdapter<ArticlesEntity, ArticlesListAdapter.ArticlesViewHolder>(DIFF_CALLBACK) {
 
-    inner class ArticlesViewHolder(private val binding: ArticleItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ArticlesViewHolder(
+        private val binding: ArticleItemBinding,
+        private val onClick: OnArticleClicked,
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(article: ArticlesEntity) {
             binding.apply {
                 articleTitle.text = article.title
                 articleText.text = article.text
-                articleDate.text = formatDate(article.date)
-                Glide.with(itemView.context).load(BASE_URL+ article.image).into(articleItemImage)
-//                Picasso.get().load(BASE_URL + article.image).centerCrop().fit().into(articleItemImage)
-//                articleItem.setOnClickListener {
-//                    onItemClick.invoke(article)
-//                }
-            }
-        }
+                articleDate.text = article.formatDate(article.date)
 
-        private fun formatDate(date: String): String {
-            val dateTime: ZonedDateTime = OffsetDateTime.parse(date).toZonedDateTime()
-            val defaultZoneTime: ZonedDateTime =
-                dateTime.withZoneSameInstant(ZoneId.systemDefault())
-            val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN)
-            return defaultZoneTime.format(formatter)
+                Glide.with(itemView.context)
+                    .load(BASE_URL + article.image)
+                    .error(R.drawable.ic_launcher_background)
+                    .into(articleItemImage)
+
+                itemView.setOnClickListener {
+                    onClick.invoke(article)
+                }
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ArticleItemBinding.inflate(layoutInflater, parent, false)
-        return ArticlesViewHolder(binding)
+        return ArticlesViewHolder(binding, onClick)
     }
 
     override fun onBindViewHolder(holder: ArticlesViewHolder, position: Int) {

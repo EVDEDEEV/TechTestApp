@@ -1,6 +1,5 @@
 package my.project.techtestapp.presentation.fragments.articlesList
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -12,6 +11,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentDevExamBinding
+import my.project.techtestapp.utils.OnArticleClicked
 import my.project.techtestapp.utils.collectFlow
 import my.project.techtestapp.utils.safeNavigate
 
@@ -19,13 +19,13 @@ import my.project.techtestapp.utils.safeNavigate
 class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
 
     private val binding by viewBinding(FragmentDevExamBinding::bind)
-    private val articlesAdapter by lazy { ArticlesListAdapter() }
+    private val articlesAdapter by lazy { ArticlesListAdapter(onClick) }
     private val articlesListViewModel: ArticlesListViewModel by viewModels()
 
-//    private val onClick: OnCharacterClicked = { article ->
-//        val action = DevExamDirections.actionDevExamToDetailedArticleFragment()
-//        view?.findNavController()?.navigate(action)
-//    }
+    private val onClick: OnArticleClicked = {
+        val action = ArticlesListDirections.actionDevExamToDetailedArticleFragment(it)
+        view?.findNavController()?.navigate(action)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,7 +33,6 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
         setDataToRecyclerView()
         initFilterButton()
         initRefreshButton()
-
     }
 
     private fun initRecyclerView() {
@@ -82,5 +81,3 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
         }
     }
 }
-
-

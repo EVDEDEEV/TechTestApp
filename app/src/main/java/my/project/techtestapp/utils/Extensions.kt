@@ -10,8 +10,13 @@ import androidx.navigation.NavDirections
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import my.project.techtestapp.data.models.database.articles.ArticlesEntity
+import java.time.OffsetDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
-fun <T, F: Fragment> F.collectFlow(flow: Flow<T>, onCollect: (T) -> Unit) {
+fun <T, F : Fragment> F.collectFlow(flow: Flow<T>, onCollect: (T) -> Unit) {
     viewLifecycleOwner.lifecycleScope.launch {
         repeatOnLifecycle(Lifecycle.State.STARTED) {
             flow.collectLatest {
@@ -29,4 +34,12 @@ fun NavController.safeNavigate(direction: NavDirections) {
     currentDestination?.getAction(direction.actionId)?.run {
         navigate(direction)
     }
+}
+
+fun ArticlesEntity.formatDate(date: String): String {
+    val dateTime: ZonedDateTime = OffsetDateTime.parse(date).toZonedDateTime()
+    val defaultZoneTime: ZonedDateTime =
+        dateTime.withZoneSameInstant(ZoneId.systemDefault())
+    val formatter = DateTimeFormatter.ofPattern(Constants.DATE_FORMAT_PATTERN)
+    return defaultZoneTime.format(formatter)
 }
