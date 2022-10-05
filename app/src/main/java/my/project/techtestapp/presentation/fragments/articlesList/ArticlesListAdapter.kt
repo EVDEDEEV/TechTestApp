@@ -1,4 +1,4 @@
-package my.project.techtestapp.presentation.fragments.devExam
+package my.project.techtestapp.presentation.fragments.articlesList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,8 +13,8 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-class DevExamAdapter() :
-    ListAdapter<ArticlesEntity, DevExamAdapter.ArticlesViewHolder>(AsyncDifferConfig.Builder(DIFF_CALLBACK).build()) {
+class ArticlesListAdapter() :
+    ListAdapter<ArticlesEntity, ArticlesListAdapter.ArticlesViewHolder>(AsyncDifferConfig.Builder(DIFF_CALLBACK).build()) {
 
     inner class ArticlesViewHolder(private val binding: ArticleItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

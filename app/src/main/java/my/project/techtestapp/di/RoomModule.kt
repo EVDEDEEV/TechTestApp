@@ -9,7 +9,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import my.project.techtestapp.data.models.database.TechTestAppDatabase
 import my.project.techtestapp.data.models.database.articles.ArticlesDao
-import my.project.techtestapp.data.models.database.authentication.AuthenticationDao
 import my.project.techtestapp.utils.Constants.ROOM_DATABASE_NAME
 import javax.inject.Singleton
 
@@ -29,14 +28,7 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideAuthenticationDao(database: TechTestAppDatabase): AuthenticationDao {
-        return database.authenticationDao()
-    }
-
-    @Provides
-    @Singleton
     fun provideArticlesDao(database: TechTestAppDatabase): ArticlesDao {
-        return database.arteclesDao()
+        return database.articlesDao()
     }
-
 }

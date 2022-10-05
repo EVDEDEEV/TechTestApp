@@ -1,4 +1,4 @@
-package my.project.techtestapp.presentation
+package my.project.techtestapp.presentation.fragments.articlesList
 
 import android.util.Log
 import androidx.lifecycle.*
@@ -8,23 +8,17 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import my.project.techtestapp.data.models.database.articles.ArticlesEntity
-import my.project.techtestapp.data.models.database.authentication.AuthenticationEntity
-import my.project.techtestapp.data.repository.AuthRepository
+import my.project.techtestapp.data.repository.MainRepository
 
 import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    private val repository: AuthRepository,
+class ArticlesListViewModel @Inject constructor(
+    private val repository: MainRepository,
 ) : ViewModel() {
 
-    init {
-        Log.d("MVM", this.toString())
-    }
-
     private val _listArticles: MutableStateFlow<List<ArticlesEntity>> = MutableStateFlow(listOf())
-
     val listArticles: StateFlow<List<ArticlesEntity>> = _listArticles.asStateFlow()
 
     private val trigger = MutableLiveData<Boolean>(true)
@@ -53,7 +47,7 @@ class MainViewModel @Inject constructor(
     fun loginFromApi(phone: String, password: String) {
         viewModelScope.launch {
             try {
-                val result = repository.loginFromApi(phone, password)
+                val result = repository.loadLoginStateFromApi(phone, password)
                 _authResponse.postValue(result)
             } catch (e: Exception) {
                 _authResponse.postValue(false)
@@ -62,42 +56,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-//    fun checkLogin(phone: String, password: String) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//           val resp =  repository.loginFromApi(phone, password)
-//            authResponse.postValue(resp)
-//        }
-//    }
-
-
-//    fun getArticles() {
-//
-//    }
-
-//    suspend fun getArticlesFromApi() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repository.getArticlesFromApi()
-//        }
-//    }
-//
-//    fun getArticles() {
-//        viewModelScope.launch {
-//            val articles = repository.getArticlesFromDb()
-//            listArticles.postValue(articles)
-//        }
-//    }
-
     fun deleteFromTab() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteFromDb()
         }
     }
-
-
-//    fun getArticles() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val articles = repository.getArticlesFromDb()
-//            listArticles.postValue(articles)
-//        }
-//    }
 }

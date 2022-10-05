@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/devExam"
-        android:name="my.project.techtestapp.presentation.fragments.devExam.DevExam"
+        android:name="my.project.techtestapp.presentation.fragments.articlesList.ArticlesList"
         android:label="fragment_dev_exam"
         tools:layout="@layout/fragment_dev_exam" >
         <action

@@ -9,7 +9,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentAuthenticationBinding
-import my.project.techtestapp.presentation.MainViewModel
 import my.project.techtestapp.utils.makeToast
 import my.project.techtestapp.utils.safeNavigate
 
@@ -17,7 +16,7 @@ import my.project.techtestapp.utils.safeNavigate
 class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
 
     private val binding by viewBinding(FragmentAuthenticationBinding::bind)
-    private val mainViewModel: MainViewModel by viewModels()
+    private val authenticationViewModel: AuthenticationViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,7 +26,7 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
     }
 
     private fun setupDataObserver() {
-        mainViewModel.authResponse.observe(viewLifecycleOwner) { success ->
+        authenticationViewModel.authResponse.observe(viewLifecycleOwner) { success ->
             success?.let {
                 if (it) {
                     navigateToMainFragment()
@@ -56,7 +55,7 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
     }
 
     private fun loginFromApi(phone: String, password: String) {
-        mainViewModel.loginFromApi(phone, password)
+        authenticationViewModel.loginFromApi(phone, password)
     }
 
     private fun initClearPhoneFieldButton() {
