@@ -12,14 +12,14 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:id="@+id/detailed_article_date"
         android:layout_width="232dp"
         android:layout_marginStart="16dp"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:fontFamily="@font/roboto"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:text="@string/article_date"
         android:textColor="@color/gray"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,14 +30,17 @@
     <TextView
         android:maxLength="100"
         android:maxLines="2"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="32dp"
         android:id="@+id/detailed_article_title"
-        android:layout_width="232dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black_alternative"
-        android:textSize="14sp"
+        android:textSize="18sp"
         android:fontFamily="@font/roboto"
         android:textStyle="bold"
         android:text="@string/article_header"
+        app:layout_constraintBottom_toTopOf="@id/detailed_item_image"
         app:layout_constraintTop_toBottomOf="@id/detailed_article_date"
         app:layout_constraintStart_toStartOf="@id/detailed_article_date">
     </TextView>
@@ -64,10 +67,7 @@
         app:layout_constraintTop_toBottomOf="@id/detailed_item_image"
         app:layout_constraintStart_toStartOf="@id/detailed_item_image"
         app:layout_constraintEnd_toEndOf="@id/detailed_item_image"
-        android:text="В отчёте по исследованию космического аппарата «Новые Горизонты» (New Horizons), запущенном NASA в январе 2006 года.
-На борту аппарата находится телескоп имени Хаббла, который будет исследовать Плутон и его спутники.
-В отчёте говорится, что за время полёта аппарата на орбите Плутона была обнаружена атмосфера с высоким содержанием метана и азотного ангидрида.
-Это открытие подтверждает гипотезу, согласно которой на Плутоне есть лёд, но не объясняет, каким образом он там оказался.">
+        android:text="@string/new_horizons_nasa_2006">
 
     </TextView>
 
