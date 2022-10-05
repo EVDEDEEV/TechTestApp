@@ -58,7 +58,7 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
     private fun setDataToRecyclerView() {
         collectFlow(articlesListViewModel.listArticles) {
             articlesAdapter.submitList(it)
-            articlesAdapter.notifyDataSetChanged()
+            articlesAdapter.notifyItemRemoved(0)
         }
     }
 
