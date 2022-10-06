@@ -33,7 +33,6 @@ class DetailedArticleFragment : Fragment(R.layout.fragment_detailed_article) {
                 .error(R.drawable.ic_baseline_close_24)
                 .centerCrop()
                 .into(detailedItemImage)
-
         }
     }
 }

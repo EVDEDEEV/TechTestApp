@@ -1,12 +1,10 @@
 package my.project.techtestapp.data.models.database.articles
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
+import my.project.techtestapp.presentation.models.ArticlesUiModel
 
-@Parcelize
 @Entity(tableName = "ARTICLES_TABLE")
 data class ArticlesEntity(
     @PrimaryKey
@@ -22,6 +20,4 @@ data class ArticlesEntity(
     val text: String,
     @ColumnInfo(name = "TITLE")
     val title: String,
-) : Parcelable
-
-
+)

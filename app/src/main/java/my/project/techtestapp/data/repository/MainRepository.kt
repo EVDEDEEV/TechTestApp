@@ -6,7 +6,10 @@ import my.project.techtestapp.data.api.ArticlesResponseApi
 import my.project.techtestapp.data.api.AuthenticationApi
 import my.project.techtestapp.data.models.database.articles.ArticlesDao
 import my.project.techtestapp.data.models.database.articles.ArticlesEntity
-import my.project.techtestapp.data.models.remote.articles.mapToEntity
+import my.project.techtestapp.presentation.models.ArticlesUiModel
+import my.project.techtestapp.utils.mapToEntity
+import my.project.techtestapp.utils.mapToUi
+import my.project.techtestapp.utils.mapToUiFromResponse
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -23,23 +26,23 @@ class MainRepository @Inject constructor(
         articlesDao.clearArticlesTable()
     }
 
-    fun getArticlesFromApi(): Flow<List<ArticlesEntity>> = flow {
+    fun getArticlesFromApi(): Flow<List<ArticlesUiModel>> = flow {
         val articlesCache = articlesDao.getArticles()
         val articlesApi = loadDataFromApi()
         when {
-            articlesCache.isNotEmpty() -> emit(articlesCache)
+            articlesCache.isNotEmpty() -> emit(articlesCache.mapToUi())
             articlesApi.isNotEmpty() -> emit(articlesApi)
         }
     }
 
-    private suspend fun loadDataFromApi(): List<ArticlesEntity> {
-        val emptyList = emptyList<ArticlesEntity>()
+    private suspend fun loadDataFromApi(): List<ArticlesUiModel> {
+        val emptyList = emptyList<ArticlesUiModel>()
         try {
             val responseBody = articlesApi.getArticles().body()
             if (responseBody != null) {
-                val articlesEntity = responseBody.mapToEntity()
-                cacheArticlesFromApi(articlesEntity)
-                return articlesEntity
+                val articlesResponse = responseBody.mapToUiFromResponse()
+                cacheArticlesFromApi(articlesResponse.mapToEntity())
+                return articlesResponse
             }
         } catch (e: Exception) {
             return emptyList

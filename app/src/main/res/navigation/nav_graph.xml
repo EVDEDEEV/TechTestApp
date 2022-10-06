@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_dev_exam" >
         <action
             android:id="@+id/action_devExam_to_detailedArticleFragment"
-            app:destination="@id/detailedArticleFragment" />
+            app:destination="@id/detailedArticleFragment"/>
         <action
             android:id="@+id/action_devExam_to_filterBottomSheetFragment"
             app:destination="@id/filterBottomSheetFragment" />
@@ -36,7 +36,7 @@
 
         <argument
             android:name="article"
-            app:argType="my.project.techtestapp.data.models.database.articles.ArticlesEntity"/>
+            app:argType="my.project.techtestapp.presentation.models.ArticlesUiModel"/>
 
         <action
             android:id="@+id/action_detailedArticleFragment_to_devExam"

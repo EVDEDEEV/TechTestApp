@@ -1,5 +1,5 @@
 package my.project.techtestapp.utils
 
-import my.project.techtestapp.data.models.database.articles.ArticlesEntity
+import my.project.techtestapp.presentation.models.ArticlesUiModel
 
-typealias OnArticleClicked = (ArticlesEntity) -> Unit
+typealias OnArticleClicked = (ArticlesUiModel) -> Unit

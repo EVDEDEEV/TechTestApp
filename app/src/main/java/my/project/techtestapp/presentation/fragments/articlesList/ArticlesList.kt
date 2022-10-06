@@ -2,6 +2,7 @@ package my.project.techtestapp.presentation.fragments.articlesList
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,6 +17,7 @@ import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentDevExamBinding
 import my.project.techtestapp.utils.OnArticleClicked
 import my.project.techtestapp.utils.collectFlow
+import my.project.techtestapp.utils.makeToast
 import my.project.techtestapp.utils.safeNavigate
 
 @AndroidEntryPoint
@@ -41,6 +43,8 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
 
     private fun refreshArticlesInBackground() {
         lifecycleScope.launch {
+            clearTab()
+            Log.d("Articles Worker", "Work initiated")
             articlesListViewModel.refreshArticlesInBackground()
         }
     }
@@ -53,9 +57,21 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
 
     private fun initRefreshButton() {
         binding.refreshButton.setOnClickListener {
-            clearTab()
-            refresh()
+            if (isHasInternet() && !isAirplaneModeOn()) {
+                clearTab()
+                refresh()
+            } else {
+                makeToast(getString(R.string.check_internet))
+            }
         }
+    }
+
+    private fun isAirplaneModeOn(): Boolean {
+        return articlesListViewModel.isAirplaneModeOn()
+    }
+
+    private fun isHasInternet(): Boolean {
+        return articlesListViewModel.isHasInternetConnection()
     }
 
     private fun refresh() {

@@ -2,7 +2,6 @@ package my.project.techtestapp.data.models.remote.articles
 
 
 import com.google.gson.annotations.SerializedName
-import my.project.techtestapp.data.models.database.articles.ArticlesEntity
 
 data class ArticlesResponseItem(
     @SerializedName("date")
@@ -18,5 +17,3 @@ data class ArticlesResponseItem(
     @SerializedName("title")
     val title: String
 )
-
-

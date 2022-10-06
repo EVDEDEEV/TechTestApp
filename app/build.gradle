@@ -95,7 +95,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
     // Annotation processor
-    //noinspection LifecycleAnnotationProcessorWithJava8
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     //viewBindingDelegate
@@ -115,23 +114,14 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1'
 
-    //Picasso
-    implementation "com.squareup.picasso:picasso:2.71828"
-
-    implementation 'com.github.bluejamesbond:textjustify-android:2.1.6'
-
     //Glide
     kapt 'com.github.bumptech.glide:compiler:4.10.0'
     implementation 'com.github.bumptech.glide:glide:4.14.1'
-//    implementation ("com.github.bumptech.glide:glide:4.14.1@aar") {
-//        transitive = true
-//    }
 
     //WorkManager
     implementation("androidx.work:work-runtime-ktx:$work_version")
     implementation("androidx.hilt:hilt-work:1.0.0")
     kapt "androidx.hilt:hilt-compiler:1.0.0"
-//    implementation "androidx.startup:startup-runtime:1.1.1"
 
     //EditTextPhoneMask
 //    implementation 'com.github.RedMadRobot:input-mask-android:6.1.0'

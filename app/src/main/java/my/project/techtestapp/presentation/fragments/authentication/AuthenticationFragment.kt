@@ -52,8 +52,6 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
             AuthenticationFragmentDirections
                 .actionAuthenticationFragmentToDevExam()
         view?.findNavController()?.safeNavigate(action)
-//        view?.findNavController()?.popBackStack(R.id.authenticationFragment, true)
-
     }
 
     private fun loginFromApi(phone: String, password: String) {
