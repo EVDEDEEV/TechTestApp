@@ -1,9 +1,13 @@
 package my.project.techtestapp.presentation.fragments.articlesList
 
-
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,16 +18,16 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import my.project.techtestapp.R
-import my.project.techtestapp.databinding.FragmentDevExamBinding
+import my.project.techtestapp.databinding.FragmentArticlesListBinding
 import my.project.techtestapp.utils.OnArticleClicked
 import my.project.techtestapp.utils.collectFlow
 import my.project.techtestapp.utils.makeToast
 import my.project.techtestapp.utils.safeNavigate
 
 @AndroidEntryPoint
-class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
+class ArticlesList : Fragment(R.layout.fragment_articles_list) {
 
-    private val binding by viewBinding(FragmentDevExamBinding::bind)
+    private val binding by viewBinding(FragmentArticlesListBinding::bind)
     private val articlesAdapter by lazy { ArticlesListAdapter(onClick) }
     private val articlesListViewModel: ArticlesListViewModel by viewModels()
 
@@ -37,8 +41,27 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
         initRecyclerView()
         setDataToRecyclerView()
         initFilterButton()
-        initRefreshButton()
         refreshArticlesInBackground()
+        setMenu()
+    }
+
+
+    private fun setMenu() {
+        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.articles_list_action_bar, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.refresh_button_menu_icon -> {
+                        initRefreshButton()
+                        return true
+                    }
+                }
+                return false
+            }
+        }, viewLifecycleOwner)
     }
 
     private fun refreshArticlesInBackground() {
@@ -56,13 +79,11 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
     }
 
     private fun initRefreshButton() {
-        binding.refreshButton.setOnClickListener {
-            if (isHasInternet() && !isAirplaneModeOn()) {
-                clearTab()
-                refresh()
-            } else {
-                makeToast(getString(R.string.check_internet))
-            }
+        if (isHasInternet() && !isAirplaneModeOn()) {
+            clearTab()
+            refresh()
+        } else {
+            makeToast(getString(R.string.check_internet))
         }
     }
 

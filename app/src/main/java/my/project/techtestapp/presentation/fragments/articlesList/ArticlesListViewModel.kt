@@ -62,7 +62,7 @@ class ArticlesListViewModel @Inject constructor(
     fun refreshArticlesInBackground() {
         viewModelScope.launch {
             val request = PeriodicWorkRequest
-                .Builder(ScheduledArticlesRefresh::class.java, 15, TimeUnit.HOURS)
+                .Builder(ScheduledArticlesRefresh::class.java, 12, TimeUnit.HOURS)
                 .build()
             WorkManager.getInstance(application).enqueue(request)
         }

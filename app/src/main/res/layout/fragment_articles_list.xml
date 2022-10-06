@@ -12,8 +12,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/lll"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
             android:background="@color/main_background_white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,23 +28,27 @@
             </View>
 
             <Button
+                style="@style/CustomButtonStyle"
                 android:id="@+id/filterButton"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black_alternative"
+                android:text="@string/default_filter_button_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
             </Button>
 
-            <ImageButton
-                android:src="@drawable/ic_baseline_refresh_24"
-                android:id="@+id/refreshButton"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/filter_button_triangle_icon"
+                app:layout_constraintStart_toEndOf="@id/filterButton"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
-            </ImageButton>
+            </ImageView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

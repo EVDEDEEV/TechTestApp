@@ -12,4 +12,9 @@
     <string name="error_answer">Произошла ошибка</string>
     <string name="check_internet">Пожалуйста, проверьте интернет соединение</string>
     <string name="new_horizons_nasa_2006">В отчёте по исследованию космического аппарата «Новые Горизонты» (New Horizons), запущенном NASA в январе 2006 года. На борту аппарата находится телескоп имени Хаббла, который будет исследовать Плутон и его спутники. В отчёте говорится, что за время полёта аппарата на орбите Плутона была обнаружена атмосфера с высоким содержанием метана и азотного ангидрида. Это открытие подтверждает гипотезу, согласно которой на Плутоне есть лёд, но не объясняет, каким образом он там оказался.</string>
+    <string name="refresh_button_action_bar">refresh_button_action_bar</string>
+    <string name="favorites_menu_item">favorites_menu_item</string>
+    <string name="share_menu_item">share_menu_item</string>
+    <string name="invalid">Функционал не добавлен</string>
+    <string name="default_filter_button_text">По умолчанию</string>
 </resources>

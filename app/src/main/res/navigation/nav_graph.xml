@@ -20,7 +20,7 @@
         android:id="@+id/devExam"
         android:name="my.project.techtestapp.presentation.fragments.articlesList.ArticlesList"
         android:label="fragment_dev_exam"
-        tools:layout="@layout/fragment_dev_exam" >
+        tools:layout="@layout/fragment_articles_list" >
         <action
             android:id="@+id/action_devExam_to_detailedArticleFragment"
             app:destination="@id/detailedArticleFragment"/>

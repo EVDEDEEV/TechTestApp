@@ -1,7 +1,12 @@
 package my.project.techtestapp.presentation.fragments.detailedArticle
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -10,6 +15,7 @@ import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentDetailedArticleBinding
 import my.project.techtestapp.utils.Constants.BASE_URL
 import my.project.techtestapp.utils.formatDate
+import my.project.techtestapp.utils.makeToast
 
 
 class DetailedArticleFragment : Fragment(R.layout.fragment_detailed_article) {
@@ -20,6 +26,29 @@ class DetailedArticleFragment : Fragment(R.layout.fragment_detailed_article) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDataToFragment()
+        setMenuToDetailedFragment()
+    }
+
+    private fun setMenuToDetailedFragment() {
+        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.detailed_fragment_action_bar, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.shareMenuItem -> {
+                        makeToast(getString(R.string.invalid))
+                        return true
+                    }
+                    R.id.favoritesMenuItem -> {
+                        makeToast(getString(R.string.invalid))
+                        return true
+                    }
+                }
+                return false
+            }
+        }, viewLifecycleOwner)
     }
 
     private fun setDataToFragment() {
