@@ -1,14 +1,17 @@
 package my.project.techtestapp.presentation.fragments.articlesList
 
+
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentDevExamBinding
 import my.project.techtestapp.utils.OnArticleClicked
@@ -33,6 +36,13 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
         setDataToRecyclerView()
         initFilterButton()
         initRefreshButton()
+        refreshArticlesInBackground()
+    }
+
+    private fun refreshArticlesInBackground() {
+        lifecycleScope.launch {
+            articlesListViewModel.refreshArticlesInBackground()
+        }
     }
 
     private fun initRecyclerView() {
@@ -59,11 +69,11 @@ class ArticlesList : Fragment(R.layout.fragment_dev_exam) {
     private fun setDataToRecyclerView() {
         collectFlow(articlesListViewModel.listArticles) {
             articlesAdapter.submitList(it)
-            scrollRecyclerViewToTop()
+            scrollRecyclerViewToTopWhenItRefreshed()
         }
     }
 
-    private fun scrollRecyclerViewToTop() {
+    private fun scrollRecyclerViewToTopWhenItRefreshed() {
         articlesAdapter.registerAdapterDataObserver(object :
             RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {

@@ -48,6 +48,8 @@ dependencies {
     def room_version = "2.4.3"
     def lifecycle_version = '2.5.1'
     def coroutines_version = '1.6.4'
+//    def work_version = "1.0.1"
+    def work_version = "2.7.1"
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -119,9 +121,17 @@ dependencies {
     implementation 'com.github.bluejamesbond:textjustify-android:2.1.6'
 
     //Glide
-    implementation ("com.github.bumptech.glide:glide:4.14.1@aar") {
-        transitive = true
-    }
+    kapt 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation 'com.github.bumptech.glide:glide:4.14.1'
+//    implementation ("com.github.bumptech.glide:glide:4.14.1@aar") {
+//        transitive = true
+//    }
+
+    //WorkManager
+    implementation("androidx.work:work-runtime-ktx:$work_version")
+    implementation("androidx.hilt:hilt-work:1.0.0")
+    kapt "androidx.hilt:hilt-compiler:1.0.0"
+//    implementation "androidx.startup:startup-runtime:1.1.1"
 
     //EditTextPhoneMask
 //    implementation 'com.github.RedMadRobot:input-mask-android:6.1.0'

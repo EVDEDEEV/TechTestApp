@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import my.project.techtestapp.LTechApplication
+import my.project.techtestapp.Application
 import my.project.techtestapp.data.api.ArticlesResponseApi
 import my.project.techtestapp.data.api.AuthenticationApi
 import my.project.techtestapp.utils.Constants.BASE_URL
@@ -24,8 +24,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideApplication(@ApplicationContext app: Context): LTechApplication {
-        return app as LTechApplication
+    fun provideApplication(@ApplicationContext context: Context): Application {
+        return context as Application
     }
 
     @Provides
