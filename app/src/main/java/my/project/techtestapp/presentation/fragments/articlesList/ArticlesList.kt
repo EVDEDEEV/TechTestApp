@@ -55,25 +55,6 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
         }
     }
 
-//    private fun setMenu() {
-//        activity?.actionBar?.title = "Лента Новостей"
-//        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
-//            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-//                menuInflater.inflate(R.menu.articles_list_action_bar, menu)
-//            }
-//
-//            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-//                when (menuItem.itemId) {
-//                    R.id.refresh_button_menu_icon -> {
-//                        initRefreshButton()
-//                        return true
-//                    }
-//                }
-//                return false
-//            }
-//        }, viewLifecycleOwner)
-//    }
-
     private fun refreshArticlesInBackground() {
         lifecycleScope.launch {
             clearTab()
