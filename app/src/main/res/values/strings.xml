@@ -17,4 +17,5 @@
     <string name="share_menu_item">share_menu_item</string>
     <string name="invalid">Функционал не добавлен</string>
     <string name="default_filter_button_text">По умолчанию</string>
+    <string name="articles_list">Лента новостей</string>
 </resources>

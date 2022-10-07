@@ -7,6 +7,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.fragments.detailedArticle.DetailedArticleFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/articles_list_toolbar"
+        app:title="Лента новостей"
+        app:menu="@menu/articles_list_action_bar"
+        android:theme="?attr/actionBarTheme"
+        android:background="@color/blue"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </androidx.appcompat.widget.Toolbar>
+
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">

@@ -2,14 +2,9 @@ package my.project.techtestapp.presentation.fragments.articlesList
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +24,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
 
     private val binding by viewBinding(FragmentArticlesListBinding::bind)
     private val articlesAdapter by lazy { ArticlesListAdapter(onClick) }
-    private val articlesListViewModel: ArticlesListViewModel by viewModels()
+    private val articlesListViewModel: ArticlesListViewModel by activityViewModels()
 
     private val onClick: OnArticleClicked = {
         val action = ArticlesListDirections.actionDevExamToDetailedArticleFragment(it)
@@ -42,27 +37,42 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
         setDataToRecyclerView()
         initFilterButton()
         refreshArticlesInBackground()
+        initRefreshButton()
         setMenu()
     }
 
 
     private fun setMenu() {
-        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.articles_list_action_bar, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when (menuItem.itemId) {
-                    R.id.refresh_button_menu_icon -> {
-                        initRefreshButton()
-                        return true
-                    }
+        val toolbar = binding.articlesListToolbar
+        toolbar.apply {
+            inflateMenu(R.menu.articles_list_action_bar)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.refresh_button_menu_icon -> initRefreshButton()
                 }
-                return false
+                true
             }
-        }, viewLifecycleOwner)
+        }
     }
+
+//    private fun setMenu() {
+//        activity?.actionBar?.title = "Лента Новостей"
+//        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+//            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+//                menuInflater.inflate(R.menu.articles_list_action_bar, menu)
+//            }
+//
+//            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+//                when (menuItem.itemId) {
+//                    R.id.refresh_button_menu_icon -> {
+//                        initRefreshButton()
+//                        return true
+//                    }
+//                }
+//                return false
+//            }
+//        }, viewLifecycleOwner)
+//    }
 
     private fun refreshArticlesInBackground() {
         lifecycleScope.launch {
