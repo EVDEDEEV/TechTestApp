@@ -15,7 +15,8 @@
     <string name="refresh_button_action_bar">refresh_button_action_bar</string>
     <string name="favorites_menu_item">favorites_menu_item</string>
     <string name="share_menu_item">share_menu_item</string>
-    <string name="invalid">Функционал не добавлен</string>
+    <string name="invalid_favorites">Функционал избранного не добавлен</string>
+    <string name="invalid_share">Функционал шеринга не добавлен</string>
     <string name="default_filter_button_text">По умолчанию</string>
     <string name="articles_list">Лента новостей</string>
 </resources>

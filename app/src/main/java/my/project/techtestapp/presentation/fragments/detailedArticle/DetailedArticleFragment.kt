@@ -1,9 +1,7 @@
 package my.project.techtestapp.presentation.fragments.detailedArticle
 
 import android.os.Bundle
-import android.view.*
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -27,26 +25,28 @@ class DetailedArticleFragment : Fragment(R.layout.fragment_detailed_article) {
     }
 
     private fun setMenuToDetailedFragment() {
-        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.detailed_fragment_action_bar, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when (menuItem.itemId) {
-                    R.id.shareMenuItem -> {
-                        makeToast(getString(R.string.invalid))
-                        return true
-                    }
-                    R.id.favoritesMenuItem -> {
-                        makeToast(getString(R.string.invalid))
-                        return true
-                    }
+        val toolbar = binding.detailedArticlesListToolbar
+        toolbar.apply {
+            binding.apply {
+                setNavigationOnClickListener {
+                    activity?.onBackPressed()
                 }
-                return false
+                inflateMenu(R.menu.detailed_fragment_action_bar)
+                setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.shareMenuItem -> {
+                            makeToast(getString(R.string.invalid_share))
+                        }
+                        R.id.favoritesMenuItem -> {
+                            makeToast(getString(R.string.invalid_favorites))
+                        }
+                    }
+                    false
+                }
             }
-        }, viewLifecycleOwner)
+        }
     }
+
 
     private fun setDataToFragment() {
         val article = args.article
