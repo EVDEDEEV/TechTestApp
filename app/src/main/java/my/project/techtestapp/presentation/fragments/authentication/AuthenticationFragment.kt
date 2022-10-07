@@ -38,7 +38,7 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
             val editText = binding.telephoneEditText
             val result = mask?.changeXtoNumber()
             editText.mask = result
-            editText.maskTextWatcher
+            editText.hint = mask
         }
     }
 

@@ -24,7 +24,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
 
     private val binding by viewBinding(FragmentArticlesListBinding::bind)
     private val articlesAdapter by lazy { ArticlesListAdapter(onClick) }
-    private val articlesListViewModel: ArticlesListViewModel by activityViewModels()
+    private val articlesSharedViewModel: ArticlesSharedViewModel by activityViewModels()
 
     private val onClick: OnArticleClicked = {
         val action = ArticlesListDirections.actionDevExamToDetailedArticleFragment(it)
@@ -39,8 +39,8 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
         refreshArticlesInBackground()
         initRefreshButton()
         setMenu()
+        articlesSharedViewModel.trigger()
     }
-
 
     private fun setMenu() {
         val toolbar = binding.articlesListToolbar
@@ -59,7 +59,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
         lifecycleScope.launch {
             clearTab()
             Log.d("Articles Worker", "Work initiated")
-            articlesListViewModel.refreshArticlesInBackground()
+            articlesSharedViewModel.refreshArticlesInBackground()
         }
     }
 
@@ -79,23 +79,23 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
     }
 
     private fun isAirplaneModeOn(): Boolean {
-        return articlesListViewModel.isAirplaneModeOn()
+        return articlesSharedViewModel.isAirplaneModeOn()
     }
 
     private fun isHasInternet(): Boolean {
-        return articlesListViewModel.isHasInternetConnection()
+        return articlesSharedViewModel.isHasInternetConnection()
     }
 
     private fun refresh() {
-        articlesListViewModel.refresh()
+        articlesSharedViewModel.refresh()
     }
 
     private fun clearTab() {
-        articlesListViewModel.deleteFromTab()
+        articlesSharedViewModel.deleteFromTab()
     }
 
     private fun setDataToRecyclerView() {
-        collectFlow(articlesListViewModel.listArticles) {
+        collectFlow(articlesSharedViewModel.listArticles) {
             articlesAdapter.submitList(it)
             scrollRecyclerViewToTopWhenItRefreshed()
         }

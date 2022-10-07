@@ -127,6 +127,6 @@ dependencies {
     implementation "com.github.santalu:mask-edittext:1.1.1"
 
 //    EditTextPhoneMask
-    implementation 'com.github.RedMadRobot:input-mask-android:6.1.0'
+//    implementation 'com.github.RedMadRobot:input-mask-android:6.1.0'
 
 }

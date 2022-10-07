@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class ArticlesListViewModel @Inject constructor(
+class ArticlesSharedViewModel @Inject constructor(
     private val repository: MainRepository,
     private val application: Application,
 ) : ViewModel() {
@@ -37,7 +37,7 @@ class ArticlesListViewModel @Inject constructor(
 
     private val trigger = MutableLiveData<Boolean>(true)
 
-    init {
+    fun trigger() {
         viewModelScope.launch {
             trigger.asFlow().flatMapLatest {
                 repository.getArticlesFromApi()
