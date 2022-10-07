@@ -57,7 +57,7 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
     private fun login() {
         binding.apply {
             enterAccountButton.setOnClickListener {
-                val phone = telephoneEditText.text.toString()
+                val phone = telephoneEditText.text.toString().filter { it.isDigit() }
                 val password = passwordInputText.editText?.text.toString()
                 loginFromApi(phone, password)
             }

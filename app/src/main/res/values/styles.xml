@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
     </style>
@@ -9,7 +10,7 @@
     </style>
 
     <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
-        <item name="cardBackgroundColor"> @color/main_background_white</item>
+        <item name="cardBackgroundColor">@color/main_background_white</item>
         <item name="strokeWidth">2dp</item>
         <item name="strokeColor">#9E9E9E</item>
         <item name="cornerFamily">rounded</item>
@@ -21,10 +22,10 @@
 
     <style name="Button_card_custom_corners" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">16dp</item>
-        <item name="cornerSizeTopLeft">16dp</item>
-        <item name="cornerSizeBottomLeft">16dp</item>
-        <item name="cornerSizeBottomRight">16dp</item>
+        <item name="cornerSizeTopRight">30dp</item>
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
     </style>
 
 
@@ -40,6 +41,5 @@
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_top_corners_bottom_sheet</item>
     </style>
-
 
 </resources>
