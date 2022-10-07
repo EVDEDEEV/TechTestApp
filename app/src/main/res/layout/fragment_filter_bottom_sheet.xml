@@ -18,13 +18,14 @@
     </View>
 
     <TextView
+        android:layout_marginTop="14dp"
         android:id="@+id/sort_filter_title"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto"
         android:gravity="bottom|top"
-        android:text="Сортировка"
+        android:text="@string/filter_sort_text"
         android:textColor="@color/black_alternative"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -35,15 +36,14 @@
 
     <ImageButton
         android:id="@+id/filter_fragment_close_button"
-        android:background="@color/white"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/white"
         android:src="@drawable/ic_baseline_close_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sort_filter_title">
-
     </ImageButton>
 
     <RadioGroup
@@ -61,16 +61,16 @@
             android:buttonTint="@color/blue"
             android:fontFamily="@font/roboto"
             android:layoutDirection="rtl"
-            android:text="По умолчанию"
+            android:text="@string/default_filter_button_text"
             android:textColor="@color/black_alternative"
             android:textSize="16sp">
-
         </RadioButton>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/dividerLine"></View>
+            android:background="@color/dividerLine">
+        </View>
 
 
         <RadioButton
@@ -81,10 +81,10 @@
             android:buttonTint="@color/blue"
             android:fontFamily="@font/roboto"
             android:layoutDirection="rtl"
-            android:text="По дате"
+            android:text="@string/date_filter_text"
             android:textColor="@color/black_alternative"
-            android:textSize="16sp"></RadioButton>
-
+            android:textSize="16sp">
+        </RadioButton>
 
     </RadioGroup>
 
@@ -95,15 +95,5 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="16dp" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--tools:context=".presentation.fragments.filterFragment.FilterBottomSheetFragment">-->
-
-    <!--</FrameLayout>-->
 

@@ -19,4 +19,6 @@
     <string name="invalid_share">Функционал шеринга не добавлен</string>
     <string name="default_filter_button_text">По умолчанию</string>
     <string name="articles_list">Лента новостей</string>
+    <string name="filter_sort_text">Сортировка</string>
+    <string name="date_filter_text">По дате</string>
 </resources>
