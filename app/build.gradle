@@ -28,11 +28,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility "11"
+        targetCompatibility "11"
     }
+
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 
     buildFeatures {
@@ -123,7 +124,9 @@ dependencies {
     implementation("androidx.hilt:hilt-work:1.0.0")
     kapt "androidx.hilt:hilt-compiler:1.0.0"
 
-    //EditTextPhoneMask
-//    implementation 'com.github.RedMadRobot:input-mask-android:6.1.0'
+    implementation "com.github.santalu:mask-edittext:1.1.1"
+
+//    EditTextPhoneMask
+    implementation 'com.github.RedMadRobot:input-mask-android:6.1.0'
 
 }

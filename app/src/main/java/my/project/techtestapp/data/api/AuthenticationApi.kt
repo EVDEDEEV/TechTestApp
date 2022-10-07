@@ -1,8 +1,10 @@
 package my.project.techtestapp.data.api
 
+import my.project.techtestapp.data.models.remote.authentication.AuthPhoneMaskResponse
 import my.project.techtestapp.data.models.remote.authentication.AuthResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface AuthenticationApi {
@@ -13,4 +15,7 @@ interface AuthenticationApi {
         @Field("phone") phone: String,
         @Field("password") password: String,
     ): AuthResponse
+
+    @GET("/api/v1/phone_masks")
+    suspend fun getPhoneMaskFromApi(): AuthPhoneMaskResponse
 }

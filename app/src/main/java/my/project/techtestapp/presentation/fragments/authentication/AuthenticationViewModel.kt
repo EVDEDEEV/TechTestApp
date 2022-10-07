@@ -18,6 +18,21 @@ class AuthenticationViewModel @Inject constructor(
     private var _authResponse = MutableLiveData<Boolean?>()
     val authResponse: LiveData<Boolean?> = _authResponse
 
+    private var _mask = MutableLiveData<String>()
+    val mask: LiveData<String?> = _mask
+
+    fun loadMask() {
+        viewModelScope.launch {
+            try {
+                val result = repository.loadMask()
+                _mask.postValue(result)
+            } catch (e: Exception) {
+                _mask.postValue("")
+                Log.e("Login Exception", "$e")
+            }
+        }
+    }
+
     fun loginFromApi(phone: String, password: String) {
         viewModelScope.launch {
             try {

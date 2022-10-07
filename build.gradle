@@ -1,16 +1,24 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext.kotlin_version = '1.7.10'
     repositories {
         // other repositories...
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven { url "https://jitpack.io" }
+//        maven { url "https://www.jitpack.io" }
+//        maven { url = uri("https://www.jitpack.io" ) }
     }
     dependencies {
         // other plugins...
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.43.2'
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2'
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.43.2"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2"
         classpath 'com.github.RedMadRobot:input-mask-android:6.1.0'
+        classpath 'com.android.tools.build:gradle'
+//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//        classpath "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+//        classpath 'com.github.santalu:maskara:1.0.0'
     }
 }
 

@@ -81,3 +81,8 @@ fun List<ArticlesResponseItem>.mapToUiFromResponse(): List<ArticlesUiModel> {
         )
     }
 }
+
+
+fun String.changeXtoNumber(): String {
+    return this.replace('Х', '#', true)
+}

@@ -21,4 +21,5 @@
     <string name="articles_list">Лента новостей</string>
     <string name="filter_sort_text">Сортировка</string>
     <string name="date_filter_text">По дате</string>
+    <string name="auth_button_text">Войти</string>
 </resources>

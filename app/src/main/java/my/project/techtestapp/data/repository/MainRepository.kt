@@ -18,6 +18,10 @@ class MainRepository @Inject constructor(
     private val articlesDao: ArticlesDao,
 ) {
 
+    suspend fun loadMask(): String {
+        return authenticationApi.getPhoneMaskFromApi().phoneMask
+    }
+
     suspend fun loadLoginStateFromApi(phone: String, password: String): Boolean {
         return authenticationApi.login(phone, password).success
     }

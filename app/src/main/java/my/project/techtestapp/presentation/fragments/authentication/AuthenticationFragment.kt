@@ -9,8 +9,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentAuthenticationBinding
+import my.project.techtestapp.utils.changeXtoNumber
 import my.project.techtestapp.utils.makeToast
 import my.project.techtestapp.utils.safeNavigate
+
 
 @AndroidEntryPoint
 class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
@@ -23,6 +25,21 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
         initClearPhoneFieldButton()
         login()
         setupDataObserver()
+        loadMask()
+        setupMaskObserver()
+    }
+
+    private fun loadMask() {
+        authenticationViewModel.loadMask()
+    }
+
+    private fun setupMaskObserver() {
+        authenticationViewModel.mask.observe(viewLifecycleOwner) { mask ->
+            val editText = binding.telephoneEditText
+            val result = mask?.changeXtoNumber()
+            editText.mask = result
+            editText.maskTextWatcher
+        }
     }
 
     private fun setupDataObserver() {
@@ -33,14 +50,14 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
                 } else {
                     makeToast(getString(R.string.error_answer))
                 }
-           }
+            }
         }
     }
 
     private fun login() {
         binding.apply {
             enterAccountButton.setOnClickListener {
-                val phone = telephoneInputText.text.toString()
+                val phone = telephoneEditText.text.toString()
                 val password = passwordInputText.editText?.text.toString()
                 loginFromApi(phone, password)
             }
@@ -60,8 +77,10 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
 
     private fun initClearPhoneFieldButton() {
         binding.clearTextIcon.setOnClickListener {
-            binding.telephoneInputText.text.clear()
+            binding.telephoneEditText.text?.clear()
         }
     }
 }
+
+
 
