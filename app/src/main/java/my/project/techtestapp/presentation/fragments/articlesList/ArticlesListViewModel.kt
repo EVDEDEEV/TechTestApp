@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class ArticlesSharedViewModel @Inject constructor(
+class ArticlesListViewModel @Inject constructor(
     private val repository: MainRepository,
     private val application: Application,
 ) : ViewModel() {
@@ -35,7 +35,7 @@ class ArticlesSharedViewModel @Inject constructor(
     private val _listArticles: MutableStateFlow<List<ArticlesUiModel>> = MutableStateFlow(listOf())
     val listArticles: StateFlow<List<ArticlesUiModel>> = _listArticles.asStateFlow()
 
-    private val trigger = MutableLiveData<Boolean>(true)
+    private val trigger = MutableLiveData(true)
 
     fun trigger() {
         viewModelScope.launch {

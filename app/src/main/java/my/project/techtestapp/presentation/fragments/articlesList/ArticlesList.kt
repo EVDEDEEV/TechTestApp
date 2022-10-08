@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +24,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
 
     private val binding by viewBinding(FragmentArticlesListBinding::bind)
     private val articlesAdapter by lazy { ArticlesListAdapter(onClick) }
-    private val articlesSharedViewModel: ArticlesSharedViewModel by activityViewModels()
+    private val articlesListViewModel: ArticlesListViewModel by hiltNavGraphViewModels(R.id.nav_graph)
 
     private val onClick: OnArticleClicked = {
         val action = ArticlesListDirections.actionDevExamToDetailedArticleFragment(it)
@@ -39,7 +39,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
         refreshArticlesInBackground()
         initRefreshButton()
         setMenu()
-        articlesSharedViewModel.trigger()
+        articlesListViewModel.trigger()
     }
 
     private fun setMenu() {
@@ -59,7 +59,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
         lifecycleScope.launch {
             clearTab()
             Log.d("Articles Worker", "Work initiated")
-            articlesSharedViewModel.refreshArticlesInBackground()
+            articlesListViewModel.refreshArticlesInBackground()
         }
     }
 
@@ -79,23 +79,23 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
     }
 
     private fun isAirplaneModeOn(): Boolean {
-        return articlesSharedViewModel.isAirplaneModeOn()
+        return articlesListViewModel.isAirplaneModeOn()
     }
 
     private fun isHasInternet(): Boolean {
-        return articlesSharedViewModel.isHasInternetConnection()
+        return articlesListViewModel.isHasInternetConnection()
     }
 
     private fun refresh() {
-        articlesSharedViewModel.refresh()
+        articlesListViewModel.refresh()
     }
 
     private fun clearTab() {
-        articlesSharedViewModel.deleteFromTab()
+        articlesListViewModel.deleteFromTab()
     }
 
     private fun setDataToRecyclerView() {
-        collectFlow(articlesSharedViewModel.listArticles) {
+        collectFlow(articlesListViewModel.listArticles) {
             articlesAdapter.submitList(it)
             scrollRecyclerViewToTopWhenItRefreshed()
         }

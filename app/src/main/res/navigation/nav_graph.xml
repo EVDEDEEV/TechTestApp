@@ -12,12 +12,12 @@
         tools:layout="@layout/fragment_authentication" >
         <action
             android:id="@+id/action_authenticationFragment_to_devExam"
-            app:destination="@id/devExam"
+            app:destination="@id/articles_list"
             app:popUpTo="@id/authenticationFragment"
             app:popUpToInclusive="true"/>
     </fragment>
     <fragment
-        android:id="@+id/devExam"
+        android:id="@+id/articles_list"
         android:name="my.project.techtestapp.presentation.fragments.articlesList.ArticlesList"
         android:label="fragment_dev_exam"
         tools:layout="@layout/fragment_articles_list" >
@@ -40,7 +40,7 @@
 
         <action
             android:id="@+id/action_detailedArticleFragment_to_devExam"
-            app:destination="@id/devExam" />
+            app:destination="@id/articles_list" />
     </fragment>
     <dialog
         android:id="@+id/filterBottomSheetFragment"
@@ -48,6 +48,6 @@
         android:label="FilterBottomSheetFragment" >
         <action
             android:id="@+id/action_filterBottomSheetFragment_to_devExam"
-            app:destination="@id/devExam" />
+            app:destination="@id/articles_list" />
     </dialog>
 </navigation>

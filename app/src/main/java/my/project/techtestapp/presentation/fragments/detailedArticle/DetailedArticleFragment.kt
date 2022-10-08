@@ -3,23 +3,21 @@ package my.project.techtestapp.presentation.fragments.detailedArticle
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentDetailedArticleBinding
-import my.project.techtestapp.presentation.fragments.articlesList.ArticlesSharedViewModel
 import my.project.techtestapp.utils.Constants.BASE_URL
 import my.project.techtestapp.utils.formatDate
 import my.project.techtestapp.utils.makeToast
 
-
+@AndroidEntryPoint
 class DetailedArticleFragment : Fragment(R.layout.fragment_detailed_article) {
 
     private val binding by viewBinding(FragmentDetailedArticleBinding::bind)
     private val args: DetailedArticleFragmentArgs by navArgs()
-    private val articlesSharedViewModel: ArticlesSharedViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
