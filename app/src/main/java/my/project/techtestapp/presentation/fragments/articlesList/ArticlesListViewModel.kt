@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
-import my.project.techtestapp.Application
+import my.project.techtestapp.app.Application
 import my.project.techtestapp.data.repository.MainRepository
 import my.project.techtestapp.data.worker.ScheduledArticlesRefresh
 import my.project.techtestapp.presentation.models.ArticlesUiModel

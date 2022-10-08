@@ -12,13 +12,9 @@ buildscript {
     }
     dependencies {
         // other plugins...
-        classpath "com.google.dagger:hilt-android-gradle-plugin:2.43.2"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.44"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2"
-//        classpath 'com.github.RedMadRobot:input-mask-android:6.1.0'
         classpath 'com.android.tools.build:gradle'
-//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-//        classpath "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-//        classpath 'com.github.santalu:maskara:1.0.0'
     }
 }
 
