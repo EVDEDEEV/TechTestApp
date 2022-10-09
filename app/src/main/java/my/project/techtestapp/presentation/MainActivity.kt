@@ -1,8 +1,8 @@
 package my.project.techtestapp.presentation
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isGone
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -18,18 +18,27 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        hideBottomAppBarInAuthenticationFragment()
         navController = findNavController(R.id.nav_host_fragment)
+        hideBottomAppBarInAuthenticationFragment()
 //        binding.bottomNavigationView.setupWithNavController(navController)
     }
 
+
     private fun hideBottomAppBarInAuthenticationFragment() {
-        binding.bottomNavigationView.isGone = true
+        binding.apply {
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.id == R.id.authenticationFragment) {
+                    bottomNavigationView.visibility = View.GONE
+                } else {
+                    bottomNavigationView.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-
 }
+
 

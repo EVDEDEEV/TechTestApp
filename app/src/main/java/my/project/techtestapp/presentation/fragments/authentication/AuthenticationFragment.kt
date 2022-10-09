@@ -24,7 +24,6 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initClearPhoneFieldButton()
         setupLoginSuccessStatusObserver()
         setupEnterButtonListener()
