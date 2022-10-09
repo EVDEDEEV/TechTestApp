@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthenticationViewModel @Inject constructor(
-    private val repository: AuthenticationRepository,
+    private val authenticationRepository: AuthenticationRepository,
     private val context: Application
 ) : ViewModel() {
 
@@ -26,7 +26,7 @@ class AuthenticationViewModel @Inject constructor(
 
     fun login(phone: String, password: String) = viewModelScope.launch {
         try {
-            if (repository.loadLoginStateFromApi(phone, password)) {
+            if (authenticationRepository.loadLoginStateFromApi(phone, password)) {
                 _loginState.value = LoginState.Success
             }
         } catch (e: Exception) {
@@ -41,7 +41,7 @@ class AuthenticationViewModel @Inject constructor(
     fun loadMask() {
         viewModelScope.launch {
             try {
-                val result = repository.loadMask()
+                val result = authenticationRepository.loadMask()
                 _mask.postValue(result)
             } catch (e: Exception) {
                 _mask.postValue("")

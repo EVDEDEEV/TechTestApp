@@ -3,7 +3,6 @@ package my.project.techtestapp.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import my.project.techtestapp.data.api.ArticlesResponseApi
-import my.project.techtestapp.data.api.AuthenticationApi
 import my.project.techtestapp.data.models.database.articles.ArticlesDao
 import my.project.techtestapp.data.models.database.articles.ArticlesEntity
 import my.project.techtestapp.presentation.models.ArticlesUiModel
@@ -12,13 +11,10 @@ import my.project.techtestapp.utils.mapToUi
 import my.project.techtestapp.utils.mapToUiFromResponse
 import javax.inject.Inject
 
-class MainRepository @Inject constructor(
-
+class ArticlesRepository @Inject constructor(
     private val articlesApi: ArticlesResponseApi,
     private val articlesDao: ArticlesDao,
 ) {
-
-
 
     suspend fun deleteFromDb() {
         articlesDao.clearArticlesTable()
