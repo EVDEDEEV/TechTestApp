@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentAuthenticationBinding
+import my.project.techtestapp.utils.LoginUiState
 import my.project.techtestapp.utils.changeXtoNumber
-import my.project.techtestapp.utils.makeToast
 import my.project.techtestapp.utils.safeNavigate
 
 
@@ -22,9 +24,10 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initClearPhoneFieldButton()
-        login()
-        setupDataObserver()
+        setupLoginSuccessStatusObserver()
+        setupEnterButtonListener()
         loadMask()
         setupMaskObserver()
     }
@@ -42,26 +45,35 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
         }
     }
 
-    private fun setupDataObserver() {
-        authenticationViewModel.authResponse.observe(viewLifecycleOwner) { success ->
-            success?.let {
-                if (it) {
-                    navigateToMainFragment()
-                } else {
-                    makeToast(getString(R.string.error_answer))
+    private fun setupEnterButtonListener() {
+        binding.apply {
+            enterAccountButton.setOnClickListener {
+                val phone = telephoneEditText.text.toString().filter { it.isDigit() }
+                val password = passwordInputText.editText?.text.toString()
+                loadLoginSuccessStatusFromServer(phone, password)
+            }
+        }
+    }
+
+    private fun setupLoginSuccessStatusObserver() {
+        lifecycleScope.launchWhenCreated {
+            authenticationViewModel.loginUiState.collect {
+                when (it) {
+                    is LoginUiState.Success -> {
+                        Snackbar.make(binding.root, "Успешно", Snackbar.LENGTH_LONG).show()
+                        navigateToMainFragment()
+                    }
+                    is LoginUiState.Error -> {
+                        Snackbar.make(binding.root, it.message, Snackbar.LENGTH_LONG).show()
+                    }
+                    else -> Unit
                 }
             }
         }
     }
 
-    private fun login() {
-        binding.apply {
-            enterAccountButton.setOnClickListener {
-                val phone = telephoneEditText.text.toString().filter { it.isDigit() }
-                val password = passwordInputText.editText?.text.toString()
-                loginFromApi(phone, password)
-            }
-        }
+    private fun loadLoginSuccessStatusFromServer(phone: String, password: String) {
+        authenticationViewModel.login(phone, password)
     }
 
     private fun navigateToMainFragment() {
@@ -71,16 +83,9 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
         view?.findNavController()?.safeNavigate(action)
     }
 
-    private fun loginFromApi(phone: String, password: String) {
-        authenticationViewModel.loginFromApi(phone, password)
-    }
-
     private fun initClearPhoneFieldButton() {
         binding.clearTextIcon.setOnClickListener {
             binding.telephoneEditText.text?.clear()
         }
     }
 }
-
-
-

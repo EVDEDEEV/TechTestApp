@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentArticlesListBinding
@@ -24,12 +25,13 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
 
     private val binding by viewBinding(FragmentArticlesListBinding::bind)
     private val articlesAdapter by lazy { ArticlesListAdapter(onClick) }
-    private val articlesListViewModel: ArticlesListViewModel by hiltNavGraphViewModels(R.id.nav_graph)
+    private val articlesListViewModel: ArticlesListViewModel by activityViewModels()
 
     private val onClick: OnArticleClicked = {
         val action = ArticlesListDirections.actionDevExamToDetailedArticleFragment(it)
         view?.findNavController()?.navigate(action)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,6 +42,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
         initRefreshButton()
         setMenu()
         articlesListViewModel.trigger()
+
     }
 
     private fun setMenu() {
@@ -56,7 +59,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
     }
 
     private fun refreshArticlesInBackground() {
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             clearTab()
             Log.d("Articles Worker", "Work initiated")
             articlesListViewModel.refreshArticlesInBackground()
