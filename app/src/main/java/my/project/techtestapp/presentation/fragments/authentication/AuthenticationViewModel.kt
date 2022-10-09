@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import my.project.techtestapp.R
 import my.project.techtestapp.app.Application
-import my.project.techtestapp.data.repository.MainRepository
+import my.project.techtestapp.data.repository.AuthenticationRepository
 import my.project.techtestapp.utils.LoginState
 import javax.inject.Inject
 
 @HiltViewModel
 class AuthenticationViewModel @Inject constructor(
-    private val repository: MainRepository,
+    private val repository: AuthenticationRepository,
     private val context: Application
 ) : ViewModel() {
 

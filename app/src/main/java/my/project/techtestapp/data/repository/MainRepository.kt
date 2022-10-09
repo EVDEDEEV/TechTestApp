@@ -13,18 +13,12 @@ import my.project.techtestapp.utils.mapToUiFromResponse
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
-    private val authenticationApi: AuthenticationApi,
+
     private val articlesApi: ArticlesResponseApi,
     private val articlesDao: ArticlesDao,
 ) {
 
-    suspend fun loadMask(): String {
-        return authenticationApi.getPhoneMaskFromApi().phoneMask
-    }
 
-    suspend fun loadLoginStateFromApi(phone: String, password: String): Boolean {
-        return authenticationApi.login(phone, password).success
-    }
 
     suspend fun deleteFromDb() {
         articlesDao.clearArticlesTable()
