@@ -1,7 +1,7 @@
 package my.project.techtestapp.utils
 
-sealed class LoginUiState {
-    object Success : LoginUiState()
-    data class Error(val message: String) : LoginUiState()
-    object Empty: LoginUiState()
+sealed class LoginState {
+    object Success : LoginState()
+    data class Error(val message: String) : LoginState()
+    object Empty: LoginState()
 }

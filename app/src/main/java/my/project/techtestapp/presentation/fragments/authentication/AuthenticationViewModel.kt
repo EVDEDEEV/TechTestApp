@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import my.project.techtestapp.R
 import my.project.techtestapp.app.Application
 import my.project.techtestapp.data.repository.MainRepository
-import my.project.techtestapp.utils.LoginUiState
+import my.project.techtestapp.utils.LoginState
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,16 +21,16 @@ class AuthenticationViewModel @Inject constructor(
     private val context: Application
 ) : ViewModel() {
 
-    private val _loginUiState = MutableStateFlow<LoginUiState>(LoginUiState.Empty)
-    val loginUiState: StateFlow<LoginUiState> = _loginUiState
+    private val _loginState = MutableStateFlow<LoginState>(LoginState.Empty)
+    val loginState: StateFlow<LoginState> = _loginState
 
     fun login(phone: String, password: String) = viewModelScope.launch {
         try {
             if (repository.loadLoginStateFromApi(phone, password)) {
-                _loginUiState.value = LoginUiState.Success
+                _loginState.value = LoginState.Success
             }
         } catch (e: Exception) {
-            _loginUiState.value = LoginUiState.Error(context.getString(R.string.error_answer))
+            _loginState.value = LoginState.Error(context.getString(R.string.error_answer))
             Log.e("Login Exception", "$e")
         }
     }

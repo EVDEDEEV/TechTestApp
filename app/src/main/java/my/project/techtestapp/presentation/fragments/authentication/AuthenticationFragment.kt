@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentAuthenticationBinding
-import my.project.techtestapp.utils.LoginUiState
+import my.project.techtestapp.utils.LoginState
 import my.project.techtestapp.utils.changeXtoNumber
 import my.project.techtestapp.utils.safeNavigate
 
@@ -57,13 +57,13 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
 
     private fun setupLoginSuccessStatusObserver() {
         lifecycleScope.launchWhenCreated {
-            authenticationViewModel.loginUiState.collect {
+            authenticationViewModel.loginState.collect {
                 when (it) {
-                    is LoginUiState.Success -> {
+                    is LoginState.Success -> {
                         Snackbar.make(binding.root, "Успешно", Snackbar.LENGTH_LONG).show()
                         navigateToMainFragment()
                     }
-                    is LoginUiState.Error -> {
+                    is LoginState.Error -> {
                         Snackbar.make(binding.root, it.message, Snackbar.LENGTH_LONG).show()
                     }
                     else -> Unit
