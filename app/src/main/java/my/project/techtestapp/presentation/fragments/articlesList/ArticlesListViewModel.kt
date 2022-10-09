@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import my.project.techtestapp.app.Application
-import my.project.techtestapp.data.repository.ArticlesRepository
+import my.project.techtestapp.data.repository.ArticlesListRepository
 import my.project.techtestapp.data.worker.ScheduledArticlesRefresh
 import my.project.techtestapp.presentation.models.ArticlesUiModel
 import java.util.concurrent.TimeUnit
@@ -28,7 +28,7 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class ArticlesListViewModel @Inject constructor(
-    private val articlesRepository: ArticlesRepository,
+    private val articlesListRepository: ArticlesListRepository,
     private val application: Application,
 ) : ViewModel() {
 
@@ -40,7 +40,7 @@ class ArticlesListViewModel @Inject constructor(
     fun trigger() {
         viewModelScope.launch {
             trigger.asFlow().flatMapLatest {
-                articlesRepository.getArticlesFromApi()
+                articlesListRepository.getArticlesFromApi()
             }
                 .collect {
                     _listArticles.value = it
@@ -55,7 +55,7 @@ class ArticlesListViewModel @Inject constructor(
 
     fun deleteFromTab() {
         viewModelScope.launch(Dispatchers.IO) {
-            articlesRepository.deleteFromDb()
+            articlesListRepository.deleteFromDb()
         }
     }
 

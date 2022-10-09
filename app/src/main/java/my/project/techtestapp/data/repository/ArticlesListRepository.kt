@@ -11,7 +11,7 @@ import my.project.techtestapp.utils.mapToUi
 import my.project.techtestapp.utils.mapToUiFromResponse
 import javax.inject.Inject
 
-class ArticlesRepository @Inject constructor(
+class ArticlesListRepository @Inject constructor(
     private val articlesApi: ArticlesResponseApi,
     private val articlesDao: ArticlesDao,
 ) {
