@@ -3,6 +3,7 @@ package my.project.techtestapp.presentation.fragments.detailedArticle
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
@@ -30,7 +31,7 @@ class DetailedArticleFragment : Fragment(R.layout.fragment_detailed_article) {
         toolbar.apply {
             binding.apply {
                 setNavigationOnClickListener {
-                    activity?.onBackPressed()
+                    findNavController().navigateUp()
                 }
                 inflateMenu(R.menu.detailed_fragment_action_bar)
                 setOnMenuItemClickListener {
