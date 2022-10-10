@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.provider.Settings
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,6 +31,12 @@ class ArticlesListViewModel @Inject constructor(
     private val _listArticles = MutableLiveData<List<ArticlesListUiModel>>()
     val listArticles: LiveData<List<ArticlesListUiModel>> = _listArticles
 
+    init {
+        Log.d("Articles Worker", " viewModelCreated")
+        refreshArticlesInBackground()
+        loadArticles()
+    }
+
     fun loadArticles() {
         viewModelScope.launch {
             val result = articlesListRepository.loadArticlesListFromApi()
@@ -43,7 +50,7 @@ class ArticlesListViewModel @Inject constructor(
         }
     }
 
-    fun refreshArticlesInBackground() {
+    private fun refreshArticlesInBackground() {
         viewModelScope.launch {
             val request = PeriodicWorkRequest
                 .Builder(ScheduledArticlesRefresh::class.java, 30, TimeUnit.MINUTES)

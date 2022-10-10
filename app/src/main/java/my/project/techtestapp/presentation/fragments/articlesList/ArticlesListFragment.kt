@@ -1,17 +1,15 @@
 package my.project.techtestapp.presentation.fragments.articlesList
 
-import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentArticlesListBinding
 import my.project.techtestapp.utils.OnArticleClicked
@@ -30,13 +28,8 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
         view?.findNavController()?.safeNavigate(action)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        loadArticles()
-        refreshArticlesInBackground()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("Articles Worker", " fragment1")
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         setDataToRecyclerView()
@@ -63,13 +56,6 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
             loadArticles()
         } else {
             makeToast(getString(R.string.check_internet))
-        }
-    }
-
-    private fun refreshArticlesInBackground() {
-        lifecycleScope.launch {
-            clearTab()
-            articlesListViewModel.refreshArticlesInBackground()
         }
     }
 
