@@ -10,9 +10,9 @@ import androidx.navigation.NavDirections
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import my.project.techtestapp.data.models.database.articles.ArticlesEntity
+import my.project.techtestapp.data.models.database.articlesTable.ArticlesEntity
 import my.project.techtestapp.data.models.remote.articles.ArticlesResponseItem
-import my.project.techtestapp.presentation.models.ArticlesUiModel
+import my.project.techtestapp.presentation.models.ArticlesListUiModel
 import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -38,7 +38,7 @@ fun NavController.safeNavigate(direction: NavDirections) {
     }
 }
 
-fun ArticlesUiModel.formatDate(date: String): String {
+fun ArticlesListUiModel.formatDate(date: String): String {
     val dateTime: ZonedDateTime = OffsetDateTime.parse(date).toZonedDateTime()
     val defaultZoneTime: ZonedDateTime =
         dateTime.withZoneSameInstant(ZoneId.systemDefault())
@@ -46,7 +46,7 @@ fun ArticlesUiModel.formatDate(date: String): String {
     return defaultZoneTime.format(formatter)
 }
 
-fun List<ArticlesUiModel>.mapToEntity(): List<ArticlesEntity> {
+fun List<ArticlesListUiModel>.mapToEntity(): List<ArticlesEntity> {
     return this.map {
         ArticlesEntity(id = it.id,
             date = it.date,
@@ -58,9 +58,9 @@ fun List<ArticlesUiModel>.mapToEntity(): List<ArticlesEntity> {
     }
 }
 
-fun List<ArticlesEntity>.mapToUi(): List<ArticlesUiModel> {
+fun List<ArticlesEntity>.mapFromArticlesEntityToUiModel(): List<ArticlesListUiModel> {
     return this.map {
-        ArticlesUiModel(date = it.date,
+        ArticlesListUiModel(date = it.date,
             id = it.id,
             image = it.image,
             sort = it.sort,
@@ -70,9 +70,9 @@ fun List<ArticlesEntity>.mapToUi(): List<ArticlesUiModel> {
     }
 }
 
-fun List<ArticlesResponseItem>.mapToUiFromResponse(): List<ArticlesUiModel> {
+fun List<ArticlesResponseItem>.mapFromArticlesResponseToUiModel(): List<ArticlesListUiModel> {
     return this.map {
-        ArticlesUiModel(id = it.id,
+        ArticlesListUiModel(id = it.id,
             date = it.date,
             image = it.image,
             sort = it.sort,
@@ -86,3 +86,4 @@ fun List<ArticlesResponseItem>.mapToUiFromResponse(): List<ArticlesUiModel> {
 fun String.changeXtoNumber(): String {
     return this.replace('Х', '#', true)
 }
+

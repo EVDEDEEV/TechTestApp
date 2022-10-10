@@ -8,18 +8,18 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import my.project.techtestapp.data.repository.MainRepository
+import my.project.techtestapp.data.repository.ArticlesListRepository
 
 @HiltWorker
 class ScheduledArticlesRefresh @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters,
-    private val repository: MainRepository,
+    private val repository: ArticlesListRepository,
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
         withContext(Dispatchers.IO) {
-            repository.getArticlesFromApi()
+            repository.loadArticlesListFromApi()
         }
         return Result.success()
     }

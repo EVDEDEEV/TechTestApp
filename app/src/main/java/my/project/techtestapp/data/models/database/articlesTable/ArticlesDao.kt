@@ -1,4 +1,4 @@
-package my.project.techtestapp.data.models.database.articles
+package my.project.techtestapp.data.models.database.articlesTable
 
 import androidx.room.Dao
 import androidx.room.Insert

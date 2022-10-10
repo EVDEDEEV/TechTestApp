@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,20 +15,19 @@ import kotlinx.coroutines.launch
 import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentArticlesListBinding
 import my.project.techtestapp.utils.OnArticleClicked
-import my.project.techtestapp.utils.collectFlow
 import my.project.techtestapp.utils.makeToast
 import my.project.techtestapp.utils.safeNavigate
 
 @AndroidEntryPoint
-class ArticlesList : Fragment(R.layout.fragment_articles_list) {
+class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
 
     private val binding by viewBinding(FragmentArticlesListBinding::bind)
     private val articlesAdapter by lazy { ArticlesListAdapter(onClick) }
-    private val articlesListViewModel: ArticlesListViewModel by hiltNavGraphViewModels(R.id.nav_graph)
+    private val articlesListViewModel: ArticlesListViewModel by activityViewModels()
 
     private val onClick: OnArticleClicked = {
-        val action = ArticlesListDirections.actionDevExamToDetailedArticleFragment(it)
-        view?.findNavController()?.navigate(action)
+        val action = ArticlesListFragmentDirections.actionListFragmentToDetailedArticleFragment(it)
+        view?.findNavController()?.safeNavigate(action)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +38,6 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
         refreshArticlesInBackground()
         initRefreshButton()
         setMenu()
-        articlesListViewModel.trigger()
     }
 
     private fun setMenu() {
@@ -72,7 +70,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
     private fun initRefreshButton() {
         if (isHasInternet() && !isAirplaneModeOn()) {
             clearTab()
-            refresh()
+            loadArticles()
         } else {
             makeToast(getString(R.string.check_internet))
         }
@@ -86,8 +84,8 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
         return articlesListViewModel.isHasInternetConnection()
     }
 
-    private fun refresh() {
-        articlesListViewModel.refresh()
+    private fun loadArticles() {
+        articlesListViewModel.loadArticles()
     }
 
     private fun clearTab() {
@@ -95,7 +93,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
     }
 
     private fun setDataToRecyclerView() {
-        collectFlow(articlesListViewModel.listArticles) {
+        articlesListViewModel.listArticles.observe(viewLifecycleOwner) {
             articlesAdapter.submitList(it)
             scrollRecyclerViewToTopWhenItRefreshed()
         }
@@ -114,7 +112,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
 
     private fun initFilterButton() {
         binding.filterButton.setOnClickListener {
-            val action = ArticlesListDirections.actionDevExamToFilterBottomSheetFragment()
+            val action = ArticlesListFragmentDirections.actionDevExamToFilterBottomSheetFragment()
             view?.findNavController()?.safeNavigate(action)
         }
     }

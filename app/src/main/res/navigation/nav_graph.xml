@@ -9,7 +9,7 @@
         android:id="@+id/authenticationFragment"
         android:name="my.project.techtestapp.presentation.fragments.authentication.AuthenticationFragment"
         android:label="fragment_authentication"
-        tools:layout="@layout/fragment_authentication" >
+        tools:layout="@layout/fragment_authentication">
         <action
             android:id="@+id/action_authenticationFragment_to_devExam"
             app:destination="@id/articles_list"
@@ -18,11 +18,11 @@
     </fragment>
     <fragment
         android:id="@+id/articles_list"
-        android:name="my.project.techtestapp.presentation.fragments.articlesList.ArticlesList"
-        android:label="fragment_dev_exam"
+        android:name="my.project.techtestapp.presentation.fragments.articlesList.ArticlesListFragment"
+        android:label="fragment_articles_list"
         tools:layout="@layout/fragment_articles_list" >
         <action
-            android:id="@+id/action_devExam_to_detailedArticleFragment"
+            android:id="@+id/action_list_fragment_to_detailedArticleFragment"
             app:destination="@id/detailedArticleFragment"/>
         <action
             android:id="@+id/action_devExam_to_filterBottomSheetFragment"
@@ -32,15 +32,17 @@
         android:id="@+id/detailedArticleFragment"
         android:name="my.project.techtestapp.presentation.fragments.detailedArticle.DetailedArticleFragment"
         android:label="fragment_detailed_article"
-        tools:layout="@layout/fragment_detailed_article" >
+        tools:layout="@layout/fragment_detailed_article">
 
         <argument
             android:name="article"
-            app:argType="my.project.techtestapp.presentation.models.ArticlesUiModel"/>
-
+            app:argType="my.project.techtestapp.presentation.models.ArticlesListUiModel"/>
         <action
-            android:id="@+id/action_detailedArticleFragment_to_devExam"
+            android:id="@+id/action_detailedArticleFragment_to_articles_list"
             app:destination="@id/articles_list" />
+
+        <!--        <action-->
+<!--            android:id="@+id/action_detailedArticleFragment_to_list_fragment"/>-->
     </fragment>
     <dialog
         android:id="@+id/filterBottomSheetFragment"
