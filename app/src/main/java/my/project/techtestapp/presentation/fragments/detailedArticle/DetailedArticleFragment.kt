@@ -1,6 +1,7 @@
 package my.project.techtestapp.presentation.fragments.detailedArticle
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ class DetailedArticleFragment : Fragment(R.layout.fragment_detailed_article) {
     private val args: DetailedArticleFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("Articles Worker", " fragment2")
         super.onViewCreated(view, savedInstanceState)
         setDataToFragment()
         setMenuToDetailedFragment()

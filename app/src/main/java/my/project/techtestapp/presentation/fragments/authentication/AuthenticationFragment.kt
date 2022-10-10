@@ -1,6 +1,7 @@
 package my.project.techtestapp.presentation.fragments.authentication
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,11 +26,11 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadMask()
         initClearPhoneFieldButton()
         setupLoginSuccessStatusObserver()
         setupEnterButtonListener()
         setupMaskObserver()
+        Log.d("Articles Worker", "authFragment")
     }
 
     private fun isAirplaneModeOn(): Boolean {
@@ -38,10 +39,6 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
 
     private fun isHasInternet(): Boolean {
         return authenticationViewModel.isHasInternetConnection()
-    }
-
-    private fun loadMask() {
-        authenticationViewModel.loadMask()
     }
 
     private fun setupMaskObserver() {

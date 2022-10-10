@@ -31,6 +31,11 @@ class AuthenticationViewModel @Inject constructor(
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Empty)
     val loginState: StateFlow<LoginState> = _loginState
 
+    init {
+        Log.d("Articles Worker", "authViewModel")
+        loadMask()
+    }
+
     fun login(phone: String, password: String) = viewModelScope.launch {
         val response = authenticationRepository.loadLoginStateFromApi(phone, password)
         try {
@@ -43,7 +48,7 @@ class AuthenticationViewModel @Inject constructor(
         }
     }
 
-    fun loadMask() {
+    private fun loadMask() {
         viewModelScope.launch {
             try {
                 val result = authenticationRepository.loadMask()
