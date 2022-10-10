@@ -53,7 +53,6 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
         }
     }
 
-
     private fun setupEnterButtonListener() {
 
         binding.apply {
@@ -65,7 +64,6 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
                 } else {
                     makeToast(getString(R.string.check_internet))
                 }
-
             }
         }
     }
