@@ -1,5 +1,9 @@
 package my.project.techtestapp.presentation.fragments.authentication
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.provider.Settings
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthenticationViewModel @Inject constructor(
     private val authenticationRepository: AuthenticationRepository,
-    private val context: Application,
+    private val application: Application,
 ) : ViewModel() {
 
     private var _phoneMask = MutableLiveData<String>()
@@ -34,11 +38,11 @@ class AuthenticationViewModel @Inject constructor(
                 _loginState.value = LoginState.Success
             }
         } catch (e: Exception) {
-            _loginState.value = LoginState.Error(context.getString(R.string.error_answer))
+            _loginState.value = LoginState.Error(application.getString(R.string.error_answer))
             Log.e("Login Exception", "$e")
         }
     }
-    
+
     fun loadMask() {
         viewModelScope.launch {
             try {
@@ -49,5 +53,29 @@ class AuthenticationViewModel @Inject constructor(
                 Log.e("Login Exception", "$e")
             }
         }
+    }
+
+    fun isHasInternetConnection(): Boolean {
+        val connectivityManager = application.getSystemService(
+            Context.CONNECTIVITY_SERVICE
+        ) as ConnectivityManager
+        val activityNetwork = connectivityManager.activeNetwork ?: return false
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(activityNetwork) ?: return false
+        return when {
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            else -> false
+        }
+    }
+
+    fun isAirplaneModeOn(): Boolean {
+        if (Settings.System.getInt(application.contentResolver,
+                Settings.Global.AIRPLANE_MODE_ON,
+                0) == 1
+        )
+            return true
+        return false
     }
 }

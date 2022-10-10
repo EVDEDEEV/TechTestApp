@@ -13,6 +13,7 @@ import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentAuthenticationBinding
 import my.project.techtestapp.utils.LoginState
 import my.project.techtestapp.utils.changeXtoNumber
+import my.project.techtestapp.utils.makeToast
 import my.project.techtestapp.utils.safeNavigate
 
 
@@ -31,6 +32,14 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
         setupMaskObserver()
     }
 
+    private fun isAirplaneModeOn(): Boolean {
+        return authenticationViewModel.isAirplaneModeOn()
+    }
+
+    private fun isHasInternet(): Boolean {
+        return authenticationViewModel.isHasInternetConnection()
+    }
+
     private fun loadMask() {
         authenticationViewModel.loadMask()
     }
@@ -46,11 +55,17 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
 
 
     private fun setupEnterButtonListener() {
+
         binding.apply {
             enterAccountButton.setOnClickListener {
-                val phone = telephoneEditText.text.toString().filter { it.isDigit() }
-                val password = passwordInputText.text.toString()
-                loadLoginSuccessStatusFromServer(phone, password)
+                if (isHasInternet() && !isAirplaneModeOn()) {
+                    val phone = telephoneEditText.text.toString().filter { it.isDigit() }
+                    val password = passwordInputText.text.toString()
+                    loadLoginSuccessStatusFromServer(phone, password)
+                } else {
+                    makeToast(getString(R.string.check_internet))
+                }
+
             }
         }
     }

@@ -62,11 +62,12 @@ class ArticlesListViewModel @Inject constructor(
     fun refreshArticlesInBackground() {
         viewModelScope.launch {
             val request = PeriodicWorkRequest
-                .Builder(ScheduledArticlesRefresh::class.java, 12, TimeUnit.HOURS)
+                .Builder(ScheduledArticlesRefresh::class.java, 15, TimeUnit.MINUTES)
                 .build()
             WorkManager.getInstance(application).enqueue(request)
         }
     }
+
 
     fun isHasInternetConnection(): Boolean {
         val connectivityManager = application.getSystemService(
