@@ -19,7 +19,7 @@ class ScheduledArticlesRefresh @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         withContext(Dispatchers.IO) {
-            repository.getArticlesFromRepository()
+            repository.loadArticlesListFromApi()
         }
         return Result.success()
     }

@@ -18,11 +18,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        navController = findNavController(R.id.nav_host_fragment)
+        navController = findNavController(R.id.navHostFragment)
         hideBottomAppBarInAuthenticationFragment()
-//        binding.bottomNavigationView.setupWithNavController(navController)
     }
-
 
     private fun hideBottomAppBarInAuthenticationFragment() {
         binding.apply {
@@ -40,5 +38,3 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
-
-

@@ -12,4 +12,3 @@ data class ArticlesListUiModel(
     val text: String,
     val title: String,
 ) : Parcelable
-
