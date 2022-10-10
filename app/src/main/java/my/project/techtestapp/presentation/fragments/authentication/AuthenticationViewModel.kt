@@ -41,6 +41,9 @@ class AuthenticationViewModel @Inject constructor(
         try {
             if (response == true) {
                 _loginState.value = LoginState.Success
+            } else {
+                _loginState.value = LoginState.Empty
+                _loginState.value = LoginState.Denied
             }
         } catch (e: Exception) {
             _loginState.value = LoginState.Error(application.getString(R.string.error_answer))

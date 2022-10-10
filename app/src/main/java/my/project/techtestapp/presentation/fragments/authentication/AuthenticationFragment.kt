@@ -51,7 +51,6 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
     }
 
     private fun setupEnterButtonListener() {
-
         binding.apply {
             enterAccountButton.setOnClickListener {
                 if (isHasInternet() && !isAirplaneModeOn()) {
@@ -75,6 +74,9 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
                     }
                     is LoginState.Error -> {
                         Snackbar.make(binding.root, it.message, Snackbar.LENGTH_LONG).show()
+                    }
+                    is LoginState.Denied -> {
+                        Snackbar.make(binding.root, "Проверьте правильность ввода данных", Snackbar.LENGTH_LONG).show()
                     }
                     else -> Unit
                 }
