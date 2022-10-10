@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +21,7 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
 
     private val binding by viewBinding(FragmentArticlesListBinding::bind)
     private val articlesAdapter by lazy { ArticlesListAdapter(onClick) }
-    private val articlesListViewModel: ArticlesListViewModel by activityViewModels()
+    private val articlesListViewModel: ArticlesListViewModel by viewModels()
 
     private val onClick: OnArticleClicked = {
         val action = ArticlesListFragmentDirections.actionListFragmentToDetailedArticleFragment(it)
