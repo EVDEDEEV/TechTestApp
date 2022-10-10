@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ArticlesUiModel(
+data class ArticlesListUiModel(
     val date: String,
     val id: String,
     val image: String,

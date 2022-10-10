@@ -1,9 +1,8 @@
-package my.project.techtestapp.data.models.database.articles
+package my.project.techtestapp.data.models.database.articlesTable
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import my.project.techtestapp.presentation.models.ArticlesUiModel
 
 @Entity(tableName = "ARTICLES_TABLE")
 data class ArticlesEntity(

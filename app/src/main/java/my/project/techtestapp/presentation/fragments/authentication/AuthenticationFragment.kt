@@ -24,10 +24,10 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadMask()
         initClearPhoneFieldButton()
         setupLoginSuccessStatusObserver()
         setupEnterButtonListener()
-        loadMask()
         setupMaskObserver()
     }
 
@@ -36,7 +36,7 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
     }
 
     private fun setupMaskObserver() {
-        authenticationViewModel.mask.observe(viewLifecycleOwner) { mask ->
+        authenticationViewModel.phoneMask.observe(viewLifecycleOwner) { mask ->
             val editText = binding.telephoneEditText
             val result = mask?.changeXtoNumber()
             editText.mask = result
@@ -44,11 +44,12 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
         }
     }
 
+
     private fun setupEnterButtonListener() {
         binding.apply {
             enterAccountButton.setOnClickListener {
                 val phone = telephoneEditText.text.toString().filter { it.isDigit() }
-                val password = passwordInputText.editText?.text.toString()
+                val password = passwordInputText.text.toString()
                 loadLoginSuccessStatusFromServer(phone, password)
             }
         }

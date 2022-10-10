@@ -159,7 +159,7 @@
                             android:layout_height="match_parent">
 
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/password_input_text"
+                                android:id="@+id/password_input_text_layout"
                                 app:passwordToggleEnabled="true"
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="8dp"
@@ -171,6 +171,7 @@
                                 android:layout_height="wrap_content">
 
                                 <EditText
+                                    android:id="@+id/password_input_text"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:cursorVisible="true"

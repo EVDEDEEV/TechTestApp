@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/articles_list"
-        android:name="my.project.techtestapp.presentation.fragments.articlesList.ArticlesList"
+        android:name="my.project.techtestapp.presentation.fragments.articlesList.ArticlesListFragment"
         android:label="fragment_dev_exam"
         tools:layout="@layout/fragment_articles_list" >
         <action
@@ -36,7 +36,7 @@
 
         <argument
             android:name="article"
-            app:argType="my.project.techtestapp.presentation.models.ArticlesUiModel"/>
+            app:argType="my.project.techtestapp.presentation.models.ArticlesListUiModel"/>
 
         <action
             android:id="@+id/action_detailedArticleFragment_to_devExam"

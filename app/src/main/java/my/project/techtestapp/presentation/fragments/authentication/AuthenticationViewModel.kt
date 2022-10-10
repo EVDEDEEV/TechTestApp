@@ -18,15 +18,19 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthenticationViewModel @Inject constructor(
     private val authenticationRepository: AuthenticationRepository,
-    private val context: Application
+    private val context: Application,
 ) : ViewModel() {
+
+    private var _phoneMask = MutableLiveData<String>()
+    val phoneMask: LiveData<String?> = _phoneMask
 
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Empty)
     val loginState: StateFlow<LoginState> = _loginState
 
     fun login(phone: String, password: String) = viewModelScope.launch {
+        val response = authenticationRepository.loadLoginStateFromApi(phone, password)
         try {
-            if (authenticationRepository.loadLoginStateFromApi(phone, password)) {
+            if (response == true) {
                 _loginState.value = LoginState.Success
             }
         } catch (e: Exception) {
@@ -34,17 +38,14 @@ class AuthenticationViewModel @Inject constructor(
             Log.e("Login Exception", "$e")
         }
     }
-
-    private var _mask = MutableLiveData<String>()
-    val mask: LiveData<String?> = _mask
-
+    
     fun loadMask() {
         viewModelScope.launch {
             try {
                 val result = authenticationRepository.loadMask()
-                _mask.postValue(result)
+                _phoneMask.postValue(result)
             } catch (e: Exception) {
-                _mask.postValue("")
+                _phoneMask.postValue("")
                 Log.e("Login Exception", "$e")
             }
         }

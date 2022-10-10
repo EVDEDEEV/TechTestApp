@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import my.project.techtestapp.app.Application
 import my.project.techtestapp.data.repository.ArticlesListRepository
 import my.project.techtestapp.data.worker.ScheduledArticlesRefresh
-import my.project.techtestapp.presentation.models.ArticlesUiModel
+import my.project.techtestapp.presentation.models.ArticlesListUiModel
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -32,15 +32,15 @@ class ArticlesListViewModel @Inject constructor(
     private val application: Application,
 ) : ViewModel() {
 
-    private val _listArticles: MutableStateFlow<List<ArticlesUiModel>> = MutableStateFlow(listOf())
-    val listArticles: StateFlow<List<ArticlesUiModel>> = _listArticles.asStateFlow()
+    private val _listArticles: MutableStateFlow<List<ArticlesListUiModel>> = MutableStateFlow(listOf())
+    val listArticles: StateFlow<List<ArticlesListUiModel>> = _listArticles.asStateFlow()
 
     private val trigger = MutableLiveData(true)
 
     fun trigger() {
         viewModelScope.launch {
             trigger.asFlow().flatMapLatest {
-                articlesListRepository.getArticlesFromApi()
+                articlesListRepository.getArticlesFromRepository()
             }
                 .collect {
                     _listArticles.value = it

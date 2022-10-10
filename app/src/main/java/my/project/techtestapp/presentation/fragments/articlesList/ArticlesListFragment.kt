@@ -21,14 +21,14 @@ import my.project.techtestapp.utils.makeToast
 import my.project.techtestapp.utils.safeNavigate
 
 @AndroidEntryPoint
-class ArticlesList : Fragment(R.layout.fragment_articles_list) {
+class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
 
     private val binding by viewBinding(FragmentArticlesListBinding::bind)
     private val articlesAdapter by lazy { ArticlesListAdapter(onClick) }
     private val articlesListViewModel: ArticlesListViewModel by activityViewModels()
 
     private val onClick: OnArticleClicked = {
-        val action = ArticlesListDirections.actionDevExamToDetailedArticleFragment(it)
+        val action = ArticlesListFragmentDirections.actionDevExamToDetailedArticleFragment(it)
         view?.findNavController()?.navigate(action)
     }
 
@@ -117,7 +117,7 @@ class ArticlesList : Fragment(R.layout.fragment_articles_list) {
 
     private fun initFilterButton() {
         binding.filterButton.setOnClickListener {
-            val action = ArticlesListDirections.actionDevExamToFilterBottomSheetFragment()
+            val action = ArticlesListFragmentDirections.actionDevExamToFilterBottomSheetFragment()
             view?.findNavController()?.safeNavigate(action)
         }
     }
