@@ -1,7 +1,7 @@
 package my.project.techtestapp.presentation.fragments.articlesList
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -30,17 +30,21 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
         view?.findNavController()?.safeNavigate(action)
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        loadArticles()
+        refreshArticlesInBackground()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         setDataToRecyclerView()
         initFilterButton()
-        refreshArticlesInBackground()
-        initRefreshButton()
-        setMenu()
+        setToolbarMenu()
     }
 
-    private fun setMenu() {
+    private fun setToolbarMenu() {
         val toolbar = binding.articlesListToolbar
         toolbar.apply {
             inflateMenu(R.menu.articles_list_action_bar)
@@ -53,10 +57,18 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
         }
     }
 
+    private fun initRefreshButton() {
+        if (isHasInternet() && !isAirplaneModeOn()) {
+            clearTab()
+            loadArticles()
+        } else {
+            makeToast(getString(R.string.check_internet))
+        }
+    }
+
     private fun refreshArticlesInBackground() {
         lifecycleScope.launch {
             clearTab()
-            Log.d("Articles Worker", "Work initiated")
             articlesListViewModel.refreshArticlesInBackground()
         }
     }
@@ -64,15 +76,6 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
     private fun initRecyclerView() {
         binding.articlesRecyclerView.apply {
             adapter = articlesAdapter
-        }
-    }
-
-    private fun initRefreshButton() {
-        if (isHasInternet() && !isAirplaneModeOn()) {
-            clearTab()
-            loadArticles()
-        } else {
-            makeToast(getString(R.string.check_internet))
         }
     }
 

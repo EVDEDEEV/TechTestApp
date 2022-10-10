@@ -30,7 +30,6 @@ class ArticlesListViewModel @Inject constructor(
     private val _listArticles = MutableLiveData<List<ArticlesListUiModel>>()
     val listArticles: LiveData<List<ArticlesListUiModel>> = _listArticles
 
-
     fun loadArticles() {
         viewModelScope.launch {
             val result = articlesListRepository.loadArticlesListFromApi()
