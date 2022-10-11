@@ -2,8 +2,7 @@ package my.project.techtestapp.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import my.project.techtestapp.InternetConnectionManager
+import my.project.techtestapp.utils.InternetConnectionManager
 
 abstract class BaseViewModel(
     private val internetConnectionManager: InternetConnectionManager,

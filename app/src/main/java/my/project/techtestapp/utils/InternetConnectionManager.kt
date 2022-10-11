@@ -1,4 +1,4 @@
-package my.project.techtestapp
+package my.project.techtestapp.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

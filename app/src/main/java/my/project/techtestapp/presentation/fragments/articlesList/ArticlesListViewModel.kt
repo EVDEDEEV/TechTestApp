@@ -8,13 +8,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import my.project.techtestapp.InternetConnectionManager
 import my.project.techtestapp.R
 import my.project.techtestapp.app.Application
 import my.project.techtestapp.data.repository.ArticlesListRepository
 import my.project.techtestapp.presentation.BaseViewModel
 import my.project.techtestapp.presentation.models.ArticlesListUiModel
 import my.project.techtestapp.utils.ArticlesState
+import my.project.techtestapp.utils.InternetConnectionManager
 import my.project.techtestapp.utils.mapFromArticlesEntityToUiModel
 import javax.inject.Inject
 
