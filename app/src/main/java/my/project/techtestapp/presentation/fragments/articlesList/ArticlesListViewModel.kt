@@ -3,8 +3,6 @@ package my.project.techtestapp.presentation.fragments.articlesList
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,12 +12,10 @@ import my.project.techtestapp.InternetConnectionManager
 import my.project.techtestapp.R
 import my.project.techtestapp.app.Application
 import my.project.techtestapp.data.repository.ArticlesListRepository
-import my.project.techtestapp.data.worker.ScheduledArticlesRefresh
 import my.project.techtestapp.presentation.BaseViewModel
 import my.project.techtestapp.presentation.models.ArticlesListUiModel
 import my.project.techtestapp.utils.ArticlesState
 import my.project.techtestapp.utils.mapFromArticlesEntityToUiModel
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
