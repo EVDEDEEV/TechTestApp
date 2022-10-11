@@ -3,8 +3,10 @@ package my.project.techtestapp.presentation.fragments.articlesList
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import my.project.techtestapp.R
 import my.project.techtestapp.databinding.FragmentArticlesListBinding
+import my.project.techtestapp.utils.ArticlesState
 import my.project.techtestapp.utils.OnArticleClicked
 import my.project.techtestapp.utils.makeToast
 import my.project.techtestapp.utils.safeNavigate
@@ -32,9 +35,10 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
         Log.d("Articles Worker", " fragment1")
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        setDataToRecyclerView()
+        checkArticlesListUiState()
         initFilterButton()
         setToolbarMenu()
+        setDataToRecyclerView()
     }
 
     private fun setToolbarMenu() {
@@ -87,6 +91,34 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
             scrollRecyclerViewToTopWhenItRefreshed()
         }
     }
+
+
+    private fun checkArticlesListUiState() {
+        lifecycleScope.launchWhenCreated {
+            binding.apply {
+                articlesListViewModel.articlesState.collect {
+                    when (it) {
+                        is ArticlesState.Data -> {
+                            articlesRecyclerView.isVisible = true
+                            articlesLoadProgressbar.isVisible = false
+                            Log.d("Articles Worker", "DATA")
+                        }
+                        is ArticlesState.Loading -> {
+                            articlesRecyclerView.isVisible = false
+                            articlesLoadProgressbar.isVisible = true
+                            Log.d("Articles Worker", "LOAD")
+                        }
+                        is ArticlesState.Error -> {
+                            Log.d("Articles Worker", "ERROR")
+                            makeToast(getString(R.string.error_answer))
+                        }
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
 
     private fun scrollRecyclerViewToTopWhenItRefreshed() {
         articlesAdapter.registerAdapterDataObserver(object :

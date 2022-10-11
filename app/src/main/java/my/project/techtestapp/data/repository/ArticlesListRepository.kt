@@ -17,12 +17,17 @@ class ArticlesListRepository @Inject constructor(
         articlesDao.clearArticlesTable()
     }
 
+    suspend fun getCachedArticles(): List<ArticlesEntity> {
+        return articlesDao.getArticles()
+    }
+
     suspend fun loadArticlesListFromApi(): List<ArticlesListUiModel> {
         val emptyList = emptyList<ArticlesListUiModel>()
         try {
             val responseBody = articlesApi.getArticles().body()
             if (responseBody != null) {
                 val articlesResponse = responseBody.mapFromArticlesResponseToUiModel()
+                deleteFromDb()
                 cacheArticlesToEntityFromApi(articlesResponse.mapToEntity())
                 return articlesResponse
             }
@@ -31,6 +36,7 @@ class ArticlesListRepository @Inject constructor(
         }
         return emptyList
     }
+
 
     private suspend fun cacheArticlesToEntityFromApi(articlesEntityList: List<ArticlesEntity>) {
         articlesDao.insertArticles(articlesEntityList)

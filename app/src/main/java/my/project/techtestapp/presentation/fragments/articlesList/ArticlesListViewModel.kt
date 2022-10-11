@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.provider.Settings
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,14 +12,18 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import my.project.techtestapp.R
 import my.project.techtestapp.app.Application
 import my.project.techtestapp.data.repository.ArticlesListRepository
 import my.project.techtestapp.data.worker.ScheduledArticlesRefresh
 import my.project.techtestapp.presentation.models.ArticlesListUiModel
+import my.project.techtestapp.utils.ArticlesState
+import my.project.techtestapp.utils.mapFromArticlesEntityToUiModel
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-
 
 @HiltViewModel
 class ArticlesListViewModel @Inject constructor(
@@ -28,8 +31,12 @@ class ArticlesListViewModel @Inject constructor(
     private val application: Application,
 ) : ViewModel() {
 
+    private val _articlesState = MutableStateFlow<ArticlesState>(ArticlesState.Loading)
+    val articlesState: StateFlow<ArticlesState> = _articlesState
+
     private val _listArticles = MutableLiveData<List<ArticlesListUiModel>>()
-    val listArticles: LiveData<List<ArticlesListUiModel>> = _listArticles
+    val listArticles: MutableLiveData<List<ArticlesListUiModel>> = _listArticles
+
 
     init {
         Log.d("Articles Worker", " viewModelCreated")
@@ -37,10 +44,20 @@ class ArticlesListViewModel @Inject constructor(
         loadArticles()
     }
 
-    fun loadArticles() {
-        viewModelScope.launch {
-            val result = articlesListRepository.loadArticlesListFromApi()
-            _listArticles.postValue(result)
+    fun loadArticles() = viewModelScope.launch {
+        val result = articlesListRepository.loadArticlesListFromApi()
+        val cache = articlesListRepository.getCachedArticles().mapFromArticlesEntityToUiModel()
+        try {
+            if (cache.isNotEmpty()) {
+                _listArticles.postValue(cache)
+                _articlesState.value = ArticlesState.Data
+            } else {
+                _listArticles.postValue(result)
+                _articlesState.value = ArticlesState.Data
+            }
+        } catch (e: Exception) {
+            _articlesState.value = ArticlesState.Error(application.getString(R.string.error_answer))
+            Log.e("Articles List Exception", "$e")
         }
     }
 
