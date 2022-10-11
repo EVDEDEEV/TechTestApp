@@ -31,6 +31,12 @@ class NetworkModule {
         return retrofit.create(AuthenticationApi::class.java)
     }
 
+//    @Singleton
+//    @Provides
+//    fun provideRatesApiInterface(retrofit: Retrofit): AuthenticationApi {
+//        return retrofit.create(AuthenticationApi::class.java)
+//    }
+
     @Singleton
     @Provides
     fun provideArticlesInterface(retrofit: Retrofit): ArticlesResponseApi {

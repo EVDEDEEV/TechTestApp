@@ -55,7 +55,9 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
     }
 
     private fun initRefreshButton() {
-        if (isHasInternet() && !isAirplaneModeOn()) {
+        val isHasInternetConnection = articlesListViewModel.isHasInternetConnection()
+        val isAirplaneModeOn = articlesListViewModel.isAirplaneModeOn()
+        if (isHasInternetConnection && !isAirplaneModeOn) {
             clearTab()
             loadArticles()
         } else {
@@ -69,13 +71,13 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
         }
     }
 
-    private fun isAirplaneModeOn(): Boolean {
-        return articlesListViewModel.isAirplaneModeOn()
-    }
-
-    private fun isHasInternet(): Boolean {
-        return articlesListViewModel.isHasInternetConnection()
-    }
+//    private fun isAirplaneModeOn(): Boolean {
+//        return articlesListViewModel.isAirplaneModeOn()
+//    }
+//
+//    private fun isHasInternet(): Boolean {
+//        return articlesListViewModel.isHasInternetConnection()
+//    }
 
     private fun loadArticles() {
         articlesListViewModel.loadArticles()
@@ -91,7 +93,6 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
             scrollRecyclerViewToTopWhenItRefreshed()
         }
     }
-
 
     private fun checkArticlesListUiState() {
         lifecycleScope.launchWhenCreated {

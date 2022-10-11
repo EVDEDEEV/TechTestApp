@@ -33,14 +33,6 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
         Log.d("Articles Worker", "authFragment")
     }
 
-    private fun isAirplaneModeOn(): Boolean {
-        return authenticationViewModel.isAirplaneModeOn()
-    }
-
-    private fun isHasInternet(): Boolean {
-        return authenticationViewModel.isHasInternetConnection()
-    }
-
     private fun setupMaskObserver() {
         authenticationViewModel.phoneMask.observe(viewLifecycleOwner) { mask ->
             val editText = binding.telephoneEditText
@@ -51,9 +43,11 @@ class AuthenticationFragment : Fragment(R.layout.fragment_authentication) {
     }
 
     private fun setupEnterButtonListener() {
+        val isHasInternetConnection = authenticationViewModel.isHasInternetConnection()
+        val isAirplaneModeOn = authenticationViewModel.isAirplaneModeOn()
         binding.apply {
             enterAccountButton.setOnClickListener {
-                if (isHasInternet() && !isAirplaneModeOn()) {
+                if (isHasInternetConnection && !isAirplaneModeOn) {
                     val phone = telephoneEditText.text.toString().filter { it.isDigit() }
                     val password = passwordInputText.text.toString()
                     loadLoginSuccessStatusFromServer(phone, password)

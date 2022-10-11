@@ -1,21 +1,18 @@
 package my.project.techtestapp.presentation.fragments.authentication
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.provider.Settings
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import my.project.techtestapp.InternetConnectionManager
 import my.project.techtestapp.R
 import my.project.techtestapp.app.Application
 import my.project.techtestapp.data.repository.AuthenticationRepository
+import my.project.techtestapp.presentation.BaseViewModel
 import my.project.techtestapp.utils.LoginState
 import javax.inject.Inject
 
@@ -23,7 +20,8 @@ import javax.inject.Inject
 class AuthenticationViewModel @Inject constructor(
     private val authenticationRepository: AuthenticationRepository,
     private val application: Application,
-) : ViewModel() {
+    internetConnectionManager: InternetConnectionManager
+) : BaseViewModel(internetConnectionManager) {
 
     private var _phoneMask = MutableLiveData<String>()
     val phoneMask: LiveData<String?> = _phoneMask
@@ -32,6 +30,8 @@ class AuthenticationViewModel @Inject constructor(
     val loginState: StateFlow<LoginState> = _loginState
 
     init {
+        isHasInternetConnection()
+        isAirplaneModeOn()
         Log.d("Articles Worker", "authViewModel")
         loadMask()
     }
@@ -61,29 +61,5 @@ class AuthenticationViewModel @Inject constructor(
                 Log.e("Login Exception", "$e")
             }
         }
-    }
-
-    fun isHasInternetConnection(): Boolean {
-        val connectivityManager = application.getSystemService(
-            Context.CONNECTIVITY_SERVICE
-        ) as ConnectivityManager
-        val activityNetwork = connectivityManager.activeNetwork ?: return false
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(activityNetwork) ?: return false
-        return when {
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            else -> false
-        }
-    }
-
-    fun isAirplaneModeOn(): Boolean {
-        if (Settings.System.getInt(application.contentResolver,
-                Settings.Global.AIRPLANE_MODE_ON,
-                0) == 1
-        )
-            return true
-        return false
     }
 }

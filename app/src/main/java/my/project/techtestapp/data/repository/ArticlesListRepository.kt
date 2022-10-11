@@ -8,7 +8,8 @@ import my.project.techtestapp.utils.mapFromArticlesResponseToUiModel
 import my.project.techtestapp.utils.mapToEntity
 import javax.inject.Inject
 
-class ArticlesListRepository @Inject constructor(
+class ArticlesListRepository
+@Inject constructor(
     private val articlesApi: ArticlesResponseApi,
     private val articlesDao: ArticlesDao,
 ) {
@@ -36,7 +37,6 @@ class ArticlesListRepository @Inject constructor(
         }
         return emptyList
     }
-
 
     private suspend fun cacheArticlesToEntityFromApi(articlesEntityList: List<ArticlesEntity>) {
         articlesDao.insertArticles(articlesEntityList)
