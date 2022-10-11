@@ -25,9 +25,9 @@ import javax.inject.Inject
 @HiltViewModel
 class ArticlesListViewModel @Inject constructor(
     private val articlesListRepository: ArticlesListRepository,
-    private val application: Application,
-    internetConnectionManager: InternetConnectionManager
-) : BaseViewModel(internetConnectionManager) {
+    internetConnectionManager: InternetConnectionManager,
+    application: Application
+) : BaseViewModel(internetConnectionManager, application) {
 
     private val _articlesState = MutableStateFlow<ArticlesState>(ArticlesState.Loading)
     val articlesState: StateFlow<ArticlesState> = _articlesState
@@ -38,7 +38,7 @@ class ArticlesListViewModel @Inject constructor(
     init {
         isHasInternetConnection()
         isAirplaneModeOn()
-        Log.d("Articles Worker", " viewModelCreated")
+        Log.d("Articles Worker", " ArticlesListViewModelCreated")
         refreshArticlesInBackground()
         loadArticles()
     }
@@ -55,7 +55,7 @@ class ArticlesListViewModel @Inject constructor(
                 _articlesState.value = ArticlesState.Data
             }
         } catch (e: Exception) {
-            _articlesState.value = ArticlesState.Error(application.getString(R.string.error_answer))
+            _articlesState.value = ArticlesState.Error(getApplication<Application>().getString(R.string.error_answer))
             Log.e("Articles List Exception", "$e")
         }
     }
@@ -67,12 +67,7 @@ class ArticlesListViewModel @Inject constructor(
     }
 
     private fun refreshArticlesInBackground() {
-        viewModelScope.launch {
-            val request = PeriodicWorkRequest
-                .Builder(ScheduledArticlesRefresh::class.java, 30, TimeUnit.MINUTES)
-                .build()
-            WorkManager.getInstance(application).enqueue(request)
-        }
+        articlesListRepository.refreshArticlesInBackground()
     }
 }
 

@@ -19,9 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthenticationViewModel @Inject constructor(
     private val authenticationRepository: AuthenticationRepository,
-    private val application: Application,
-    internetConnectionManager: InternetConnectionManager
-) : BaseViewModel(internetConnectionManager) {
+    internetConnectionManager: InternetConnectionManager,
+    application: Application,
+) : BaseViewModel(internetConnectionManager, application) {
 
     private var _phoneMask = MutableLiveData<String>()
     val phoneMask: LiveData<String?> = _phoneMask
@@ -32,7 +32,7 @@ class AuthenticationViewModel @Inject constructor(
     init {
         isHasInternetConnection()
         isAirplaneModeOn()
-        Log.d("Articles Worker", "authViewModel")
+        Log.d("Articles Worker", "authViewModelCreated")
         loadMask()
     }
 
@@ -46,7 +46,7 @@ class AuthenticationViewModel @Inject constructor(
                 _loginState.value = LoginState.Denied
             }
         } catch (e: Exception) {
-            _loginState.value = LoginState.Error(application.getString(R.string.error_answer))
+            _loginState.value = LoginState.Error(getApplication<Application>().getString(R.string.error_answer))
             Log.e("Login Exception", "$e")
         }
     }

@@ -32,7 +32,7 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d("Articles Worker", " fragment1")
+        Log.d("Articles Worker", "ArticlesListFragment created")
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         checkArticlesListUiState()
@@ -71,14 +71,6 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
         }
     }
 
-//    private fun isAirplaneModeOn(): Boolean {
-//        return articlesListViewModel.isAirplaneModeOn()
-//    }
-//
-//    private fun isHasInternet(): Boolean {
-//        return articlesListViewModel.isHasInternetConnection()
-//    }
-
     private fun loadArticles() {
         articlesListViewModel.loadArticles()
     }
@@ -113,13 +105,11 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
                             Log.d("Articles Worker", "ERROR")
                             makeToast(getString(R.string.error_answer))
                         }
-                        else -> Unit
                     }
                 }
             }
         }
     }
-
 
     private fun scrollRecyclerViewToTopWhenItRefreshed() {
         articlesAdapter.registerAdapterDataObserver(object :
