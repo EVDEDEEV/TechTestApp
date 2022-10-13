@@ -26,7 +26,7 @@ Test Application with authorization and articles list recycler view and it's ite
 <li>Fourth fragment with buttons for sort by id of recieved articles</li>
 
 <ul>
-![image](https://user-images.githubusercontent.com/94930087/195638046-d620d761-ebb1-4a76-9472-7476e968a492.png)
+<li>![image](https://user-images.githubusercontent.com/94930087/195638046-d620d761-ebb1-4a76-9472-7476e968a492.png)</li>
 ![image](https://user-images.githubusercontent.com/94930087/195638112-b3ea6b82-0415-4b32-b4da-de054dbd56ac.png)
 ![image](https://user-images.githubusercontent.com/94930087/195638426-89f23a55-376e-49a5-b3fb-d2f2109aa52c.png)
 ![image](https://user-images.githubusercontent.com/94930087/195638509-f6f96e2f-7966-49df-929a-0ee072d3aada.png)
